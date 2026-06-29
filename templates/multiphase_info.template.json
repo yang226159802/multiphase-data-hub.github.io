@@ -1,11 +1,11 @@
 {
-  "schema_version": "0.1.0",
-  "dataset_type": "multiphase_flow",
+  "schema_version": "0.2.0",
+  "dataset_type": "multiphase_flow_simulation",
   "global": {
     "dataset_id": "owner/dataset-name",
     "title": "Dataset title",
     "version": "1.0.0",
-    "description": "One paragraph summary of the dataset.",
+    "description": "One paragraph summary of the multiphase-flow simulation dataset.",
     "contributors": [
       {
         "name": "Contributor Name",
@@ -31,41 +31,32 @@
       "checksums_file": "checksums.sha256"
     },
     "physics": {
-      "flow_regime": "two_phase_flow",
+      "flow_type": "two_phase_flow",
       "configuration": "droplet/bubble/spray/film/channel/periodic_box/etc.",
+      "governing_equations": "incompressible two-phase Navier-Stokes with surface tension",
+      "phase_indicator_convention": "alpha=1 liquid, alpha=0 gas",
       "phases": [
         {
           "name": "liquid",
-          "role": "dispersed_or_continuous",
-          "density": {
-            "value": null,
-            "units": "kg m-3"
-          },
-          "dynamic_viscosity": {
-            "value": null,
-            "units": "Pa s"
-          }
+          "role": "dispersed_or_continuous"
         },
         {
           "name": "gas",
-          "role": "dispersed_or_continuous",
-          "density": {
-            "value": null,
-            "units": "kg m-3"
-          },
-          "dynamic_viscosity": {
-            "value": null,
-            "units": "Pa s"
-          }
+          "role": "dispersed_or_continuous"
         }
       ],
-      "surface_tension": {
-        "value": null,
-        "units": "N m-1"
-      },
-      "gravity": {
-        "value": [0.0, 0.0, 0.0],
-        "units": "m s-2"
+      "physical_parameters": {
+        "density": {
+          "liquid": { "value": null, "units": "kg m-3" },
+          "gas": { "value": null, "units": "kg m-3" }
+        },
+        "dynamic_viscosity": {
+          "liquid": { "value": null, "units": "Pa s" },
+          "gas": { "value": null, "units": "Pa s" }
+        },
+        "surface_tension": { "value": null, "units": "N m-1" },
+        "gravity": { "value": [0.0, 0.0, 0.0], "units": "m s-2" },
+        "contact_angle": { "value": null, "units": "degree" }
       },
       "dimensionless_numbers": {
         "Re": null,
@@ -79,24 +70,16 @@
       "boundary_conditions": "Describe all boundaries.",
       "initial_conditions": "Describe initial interface and velocity fields."
     },
-    "method": {
-      "source_type": "simulation",
-      "solver_or_instrument": "NGA2/OpenFOAM/Basilisk/experiment/etc.",
-      "interface_representation": "VOF",
-      "governing_equations": "incompressible Navier-Stokes with surface tension",
-      "numerical_method": {
-        "spatial_discretization": "",
-        "temporal_discretization": "",
-        "pressure_velocity_coupling": "",
-        "interface_advection": "",
-        "surface_tension_model": ""
-      },
-      "experimental_method": {
-        "diagnostic": "",
-        "spatial_resolution": "",
-        "temporal_resolution": "",
-        "uncertainty": ""
-      }
+    "numerics": {
+      "solver": "NGA2/OpenFOAM/Basilisk/etc.",
+      "interface_method": "VOF",
+      "spatial_discretization": "",
+      "temporal_discretization": "",
+      "pressure_velocity_coupling": "",
+      "interface_advection": "",
+      "surface_tension_model": "",
+      "time_step_policy": "",
+      "convergence_or_resolution_notes": ""
     },
     "grid": {
       "spatial_dimension": 3,
@@ -107,98 +90,89 @@
         "units": "m"
       },
       "coordinate_order": "[i,j,k]",
-      "storage_order": "row_major_or_fortran_order",
-      "cell_location": "cell_centered",
+      "storage_order": "fortran_order",
+      "field_location": "cell_centered",
       "coordinates": {
         "x": "grid/x.dat",
         "y": "grid/y.dat",
         "z": "grid/z.dat"
       }
     },
+    "required_field_roles": {
+      "phase_indicator": "alpha",
+      "velocity": ["u", "v", "w"],
+      "pressure": "p"
+    },
     "variables": [
       {
         "name": "alpha",
-        "standard_name": "phase_indicator",
-        "required_level": "core",
-        "description": "Volume fraction or phase indicator. Convention: alpha=1 for liquid, alpha=0 for gas.",
+        "role": "phase_indicator",
+        "standard_name": "volume_fraction",
+        "description": "Volume fraction field. Convention: alpha=1 liquid, alpha=0 gas.",
         "units": "1",
         "shape": ["nx", "ny", "nz"],
         "dtype": "float32",
         "location": "cell_centered",
-        "valid_range": [0.0, 1.0]
+        "valid_range": [0.0, 1.0],
+        "required": true
       },
       {
         "name": "u",
+        "role": "velocity_component",
         "standard_name": "velocity_x",
-        "required_level": "core_for_flow_field",
         "units": "m s-1",
         "shape": ["nx", "ny", "nz"],
         "dtype": "float32",
-        "location": "cell_centered"
+        "location": "cell_centered",
+        "required": true
       },
       {
         "name": "v",
+        "role": "velocity_component",
         "standard_name": "velocity_y",
-        "required_level": "core_for_flow_field",
         "units": "m s-1",
         "shape": ["nx", "ny", "nz"],
         "dtype": "float32",
-        "location": "cell_centered"
+        "location": "cell_centered",
+        "required": true
       },
       {
         "name": "w",
+        "role": "velocity_component",
         "standard_name": "velocity_z",
-        "required_level": "core_for_3d_flow_field",
         "units": "m s-1",
         "shape": ["nx", "ny", "nz"],
         "dtype": "float32",
-        "location": "cell_centered"
+        "location": "cell_centered",
+        "required": true
       },
       {
         "name": "p",
+        "role": "pressure",
         "standard_name": "pressure",
-        "required_level": "core_for_flow_field",
         "units": "Pa",
         "shape": ["nx", "ny", "nz"],
         "dtype": "float32",
-        "location": "cell_centered"
-      },
-      {
-        "name": "rho",
-        "standard_name": "mixture_density",
-        "required_level": "recommended",
-        "units": "kg m-3",
-        "shape": ["nx", "ny", "nz"],
-        "dtype": "float32",
-        "location": "cell_centered"
-      },
-      {
-        "name": "mu",
-        "standard_name": "mixture_dynamic_viscosity",
-        "required_level": "recommended",
-        "units": "Pa s",
-        "shape": ["nx", "ny", "nz"],
-        "dtype": "float32",
-        "location": "cell_centered"
+        "location": "cell_centered",
+        "required": true
       },
       {
         "name": "kappa",
+        "role": "derived_interface_geometry",
         "standard_name": "interface_curvature",
-        "required_level": "recommended_for_interface_learning",
+        "description": "Optional derived curvature field when available.",
         "units": "m-1",
         "shape": ["nx", "ny", "nz"],
         "dtype": "float32",
-        "location": "cell_centered"
+        "location": "cell_centered",
+        "required": false
       }
     ],
-    "ai_metadata": {
-      "tasks": ["super_resolution", "closure_modeling", "interface_reconstruction"],
-      "split_policy": "case-level split",
+    "splits": {
+      "policy": "case-level split",
       "train_cases": [],
       "validation_cases": [],
-      "test_cases": [],
-      "baseline_methods": [],
-      "metrics": []
+      "test_cases": []
     },
     "known_limitations": []
   },

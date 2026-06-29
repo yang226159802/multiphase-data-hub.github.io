@@ -16,6 +16,11 @@ Zenodo, Figshare, Kaggle, Hugging Face Datasets, institutional object storage,
 or a project server. This repository stores persistent links, metadata,
 checksums, documentation, and example loaders.
 
+For simulation datasets, the data package itself should include a
+`multiphase_info.json` file. This follows the BlastNet-style separation between
+dataset-level metadata and snapshot/case-level file records, but uses variables
+and parameters appropriate for multiphase-flow simulations.
+
 ## First Milestone
 
 The first public version should contain at least one seed dataset from the

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://multiphase-data-hub.org/schemas/multiphase_info.schema.json",
-  "title": "Multiphase Data Hub multiphase_info metadata",
+  "title": "Multiphase Data Hub simulation metadata",
   "type": "object",
   "required": ["schema_version", "dataset_type", "global", "local"],
   "properties": {
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "dataset_type": {
-      "const": "multiphase_flow"
+      "const": "multiphase_flow_simulation"
     },
     "global": {
       "type": "object",
@@ -23,23 +23,16 @@
         "citation",
         "access",
         "physics",
-        "method",
+        "numerics",
         "grid",
+        "required_field_roles",
         "variables"
       ],
       "properties": {
-        "dataset_id": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
+        "dataset_id": { "type": "string" },
+        "title": { "type": "string" },
+        "version": { "type": "string" },
+        "description": { "type": "string" },
         "contributors": {
           "type": "array",
           "minItems": 1,
@@ -63,9 +56,7 @@
             "notes": { "type": "string" }
           }
         },
-        "citation": {
-          "type": "object"
-        },
+        "citation": { "type": "object" },
         "access": {
           "type": "object",
           "required": ["landing_page"],
@@ -78,10 +69,21 @@
         },
         "physics": {
           "type": "object",
-          "required": ["flow_regime", "configuration", "phases", "boundary_conditions", "initial_conditions"],
+          "required": [
+            "flow_type",
+            "configuration",
+            "governing_equations",
+            "phase_indicator_convention",
+            "phases",
+            "physical_parameters",
+            "boundary_conditions",
+            "initial_conditions"
+          ],
           "properties": {
-            "flow_regime": { "type": "string" },
+            "flow_type": { "type": "string" },
             "configuration": { "type": "string" },
+            "governing_equations": { "type": "string" },
+            "phase_indicator_convention": { "type": "string" },
             "phases": {
               "type": "array",
               "minItems": 2,
@@ -90,38 +92,39 @@
                 "required": ["name"],
                 "properties": {
                   "name": { "type": "string" },
-                  "role": { "type": "string" },
-                  "density": { "type": "object" },
-                  "dynamic_viscosity": { "type": "object" }
+                  "role": { "type": "string" }
                 }
               }
             },
-            "surface_tension": { "type": "object" },
-            "gravity": { "type": "object" },
+            "physical_parameters": {
+              "type": "object",
+              "description": "Case or dataset constants such as density, viscosity, surface tension, gravity, and contact angle."
+            },
             "dimensionless_numbers": { "type": "object" },
             "boundary_conditions": { "type": "string" },
             "initial_conditions": { "type": "string" }
           }
         },
-        "method": {
+        "numerics": {
           "type": "object",
-          "required": ["source_type", "interface_representation"],
+          "required": ["solver", "interface_method"],
           "properties": {
-            "source_type": {
-              "enum": ["simulation", "experiment", "simulation_and_experiment", "derived_ai_dataset"]
+            "solver": { "type": "string" },
+            "interface_method": {
+              "enum": ["VOF", "level_set", "front_tracking", "phase_field", "SPH", "LBM", "other"]
             },
-            "solver_or_instrument": { "type": "string" },
-            "interface_representation": {
-              "enum": ["VOF", "level_set", "front_tracking", "phase_field", "SPH", "LBM", "image_mask", "point_cloud", "other"]
-            },
-            "governing_equations": { "type": "string" },
-            "numerical_method": { "type": "object" },
-            "experimental_method": { "type": "object" }
+            "spatial_discretization": { "type": "string" },
+            "temporal_discretization": { "type": "string" },
+            "pressure_velocity_coupling": { "type": "string" },
+            "interface_advection": { "type": "string" },
+            "surface_tension_model": { "type": "string" },
+            "time_step_policy": { "type": "string" },
+            "convergence_or_resolution_notes": { "type": "string" }
           }
         },
         "grid": {
           "type": "object",
-          "required": ["spatial_dimension", "grid_type", "shape", "coordinate_order", "cell_location"],
+          "required": ["spatial_dimension", "grid_type", "shape", "coordinate_order", "field_location"],
           "properties": {
             "spatial_dimension": {
               "type": "integer",
@@ -136,35 +139,59 @@
             "domain_size": { "type": "object" },
             "coordinate_order": { "type": "string" },
             "storage_order": { "type": "string" },
-            "cell_location": { "type": "string" },
+            "field_location": { "type": "string" },
             "coordinates": { "type": "object" }
+          }
+        },
+        "required_field_roles": {
+          "type": "object",
+          "required": ["phase_indicator", "velocity", "pressure"],
+          "properties": {
+            "phase_indicator": { "type": "string" },
+            "velocity": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "type": "string" }
+            },
+            "pressure": { "type": "string" }
           }
         },
         "variables": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 4,
           "items": {
             "type": "object",
-            "required": ["name", "standard_name", "required_level", "units", "shape", "dtype", "location"],
+            "required": ["name", "role", "standard_name", "units", "shape", "dtype", "location", "required"],
             "properties": {
               "name": { "type": "string" },
+              "role": {
+                "enum": [
+                  "phase_indicator",
+                  "velocity_component",
+                  "pressure",
+                  "temperature",
+                  "species_or_concentration",
+                  "derived_interface_geometry",
+                  "derived_diagnostic",
+                  "material_property_field",
+                  "other"
+                ]
+              },
               "standard_name": { "type": "string" },
-              "required_level": { "type": "string" },
               "description": { "type": "string" },
               "units": { "type": "string" },
               "shape": {
                 "type": "array",
-                "items": {
-                  "type": ["string", "integer"]
-                }
+                "items": { "type": ["string", "integer"] }
               },
               "dtype": { "type": "string" },
               "location": { "type": "string" },
-              "valid_range": { "type": "array" }
+              "valid_range": { "type": "array" },
+              "required": { "type": "boolean" }
             }
           }
         },
-        "ai_metadata": { "type": "object" },
+        "splits": { "type": "object" },
         "known_limitations": {
           "type": "array",
           "items": { "type": "string" }
@@ -175,22 +202,14 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "files"],
+        "required": ["id", "case_id", "snapshot_id", "time", "files"],
         "properties": {
-          "id": {
-            "type": ["integer", "string"]
-          },
+          "id": { "type": ["integer", "string"] },
           "case_id": { "type": "string" },
-          "snapshot_id": {
-            "type": ["integer", "string"]
-          },
+          "snapshot_id": { "type": ["integer", "string"] },
           "time": { "type": "object" },
-          "files": {
-            "type": "object"
-          },
-          "case_parameters": {
-            "type": "object"
-          }
+          "files": { "type": "object" },
+          "case_parameters": { "type": "object" }
         }
       }
     }

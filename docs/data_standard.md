@@ -23,28 +23,24 @@ Every dataset record should include:
 - preprocessing and normalization steps;
 - known limitations.
 
-## Multiphase Core Variables
+## Multiphase Simulation Variables
 
-Unlike combustion DNS datasets, multiphase-flow datasets cannot require one
-single universal list of fields for every contribution. VOF, level-set,
-front-tracking, phase-field, particle methods, and experiments expose different
-native variables. The standard therefore uses three levels.
+The primary catalogue target is multiphase-flow simulation data. The standard
+therefore defines required flow-field variables and keeps fixed case parameters
+separate from stored field variables.
 
-### Level 1: Required for Every Dataset
+### Required Stored Fields
 
-Every dataset must provide enough information to identify phases and interpret
-space/time:
+A complete multiphase-flow simulation dataset should include:
 
-- phase indicator or interface representation, for example `alpha`, `phi`,
-  interface mesh, mask, particle labels, or segmented image;
+- phase indicator or interface representation: `alpha`, `phi`, interface mesh,
+  or equivalent;
+- velocity components: `u`, `v`, and `w` for 3D, or `u` and `v` for 2D;
+- pressure: `p`;
 - grid or coordinates;
-- time or snapshot id;
-- phase convention, for example `alpha=1` means liquid and `alpha=0` means gas;
-- boundary conditions and initial conditions;
-- material properties or enough information to reconstruct them;
-- units and coordinate order.
+- time or snapshot id.
 
-For VOF-style datasets, the preferred phase-indicator variable is:
+For VOF datasets, the preferred phase-indicator variable is:
 
 ```text
 alpha
@@ -58,29 +54,54 @@ alpha = 0: gas phase
 0 < alpha < 1: interfacial cell
 ```
 
-### Level 2: Required for Flow-Field Simulation Datasets
+For level-set datasets, the preferred interface variable is:
 
-If the dataset claims to provide a flow field, it should include:
+```text
+phi
+```
 
-- velocity components: `u`, `v`, and `w` for 3D, or `u`, `v` for 2D;
-- pressure: `p`;
-- phase indicator: `alpha`, `phi`, mask, or interface geometry;
-- density and viscosity, either as fields `rho`, `mu` or as phase constants plus
-  a mixing rule;
-- surface tension coefficient `sigma` when capillarity is active;
-- gravity or body-force vector when relevant.
+with the sign convention explicitly documented.
 
-### Level 3: Recommended for Interface-Learning Datasets
+### Required Case Parameters
 
-For AI tasks such as super-resolution, interface reconstruction, curvature
-closure, breakup prediction, or segmentation, contributors should include or
-document how to compute:
+The following quantities are usually fixed settings of a simulation case and
+should be stored as metadata, not as default field variables:
+
+- phase densities, for example `rho_liquid`, `rho_gas`;
+- phase dynamic viscosities, for example `mu_liquid`, `mu_gas`;
+- surface tension coefficient `sigma`;
+- gravity or body-force vector `g`;
+- contact angle or wall-wetting model parameters;
+- Reynolds, Weber, Capillary, Froude, Bond, Ohnesorge, or Atwood numbers when
+  relevant;
+- boundary conditions and initial conditions.
+
+Only store `rho`, `mu`, `sigma`, or `g` as variables when they genuinely vary in
+space/time or are part of the solver output being released. In that case their
+variable role should be `material_property_field` or `derived_diagnostic`.
+
+### Optional Derived Fields
+
+Datasets may additionally include derived fields when they are available and
+useful:
 
 - interface normal: `nx`, `ny`, `nz`;
 - curvature: `kappa`;
-- signed-distance or level-set field: `phi`;
 - interface area density;
-- cell volume, face area, and grid spacing;
+- vorticity;
+- strain-rate or dissipation diagnostics;
+- cell volume, face area, and grid spacing if not obvious from the grid;
+- temperature or species fields for thermally coupled or reacting multiphase
+  simulations.
+
+Derived fields should never replace the required primitive flow fields unless
+the dataset is explicitly documented as a reduced derived product.
+
+### Benchmark Metadata
+
+If the dataset is intended for model development or benchmarking, it should also
+provide:
+
 - train/validation/test split;
 - baseline numerical operator or model;
 - evaluation metrics.
@@ -104,8 +125,9 @@ templates/multiphase_info.schema.json
 ```
 
 The `global.variables` list is the authoritative declaration of variable names,
-units, shapes, locations, and conventions. The `local` section maps each case or
-snapshot to actual files.
+units, shapes, locations, and conventions. Fixed physical settings belong in
+`global.physics.physical_parameters` or `local.case_parameters`, while the
+`local` section maps each case or snapshot to actual field files.
 
 ## Recommended File Layout
 
@@ -152,9 +174,10 @@ Each dataset must specify:
 - boundary conditions;
 - whether fields are instantaneous snapshots, time series, or derived patches.
 
-## AI Benchmark Requirements
+## Benchmark Requirements
 
-AI-ready datasets should additionally provide:
+Datasets intended for machine-learning or numerical-method benchmarks should
+additionally provide:
 
 - train/validation/test split policy;
 - leakage prevention rule, for example split by case, geometry, or Reynolds
