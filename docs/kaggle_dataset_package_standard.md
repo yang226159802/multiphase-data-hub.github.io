@@ -1,159 +1,26 @@
 # Kaggle Dataset Package Standard for Multiphase-Flow Data
 
-This document defines the recommended file structure and metadata requirements
-for publishing multiphase-flow datasets on Kaggle and indexing them in
-Multiphase Data Hub.
+The goal is practical reuse: a downloader should be able to read the uploaded
+field data with Python and construct task-specific training, testing, or
+visualization datasets.
 
-The primary goal is practical reuse: a downloader should be able to read the
-field data with Python, reconstruct the grid and variables, and build their own
-task-specific training dataset.
+The data format is not forced, but metadata must be clear, variables must be
+defined, and at least one sample should be readable without private code.
 
-## Core Principle
+## Recommended Package Structure
 
-The raw data format is not forced. Contributors may upload solver-native CFD
-outputs or preprocessed machine-learning arrays. However, the metadata must be
-complete enough for a third-party user to read and interpret the data without
-private knowledge from the authors.
-
-## Dataset Format Classes
-
-### Class A: Preprocessed Array Datasets
-
-Use this class when the data have already been converted into machine-learning
-friendly arrays.
-
-Typical formats:
+Each Kaggle dataset should contain:
 
 ```text
-.npy
-.npz
-.h5 / .hdf5
-.zarr
-.nc / NetCDF
-```
-
-Examples:
-
-```text
-data/train.npz
-data/val.npz
-data/test.npz
-data/fields.h5
-```
-
-Required metadata:
-
-- array names;
-- array shapes;
-- dtype;
-- units;
-- normalization or nondimensionalization;
-- train/validation/test split, if present;
-- relation between arrays, for example input/output pairs, HR/LR pairs, or
-  fields/labels;
-- coordinate order, for example `[z, y, x]` or `[x, y, z]`;
-- whether arrays are cell-centered or node-centered.
-
-Recommended files:
-
-```text
+dataset-metadata.json
+info.json
+README.md
 load_example.py
+checksums.sha256
+data/
 ```
 
-The loader should show how to load at least one sample and print its shape.
-
-### Class B: Standard CFD Field Files
-
-Use this class when data are stored in common CFD or visualization formats.
-
-Typical formats:
-
-```text
-.dat
-.vtk / .vti / .vtu / .vtr
-.xdmf + .h5
-EnSight Gold case/geometry/variable files
-OpenFOAM time directories
-Basilisk outputs
-```
-
-Required metadata:
-
-- file format;
-- variable names and physical meanings;
-- units;
-- grid type;
-- grid dimensions;
-- coordinate source, for example analytic uniform grid, coordinate files, or
-  mesh file;
-- field location, for example cell-centered, node-centered, face-centered;
-- snapshot/time-step mapping;
-- file path pattern;
-- whether the files can be opened directly by common readers such as PyVista,
-  meshio, h5py, xarray, or custom code.
-
-Required additional files:
-
-- mesh, geometry, or coordinate files when the grid cannot be reconstructed from
-  metadata alone;
-- a case/index file when needed to associate variables and time steps.
-
-For uniform Cartesian grids, coordinate files are not required if `info.json`
-fully specifies the domain bounds, dimensions, spacing, and axis convention.
-
-Recommended files:
-
-```text
-load_example.py
-```
-
-This is strongly recommended even when the format is common, because solver
-output conventions vary.
-
-### Class C: Solver-Specific Binary Files Without Extension
-
-Use this class when the data are raw or semi-raw CFD binary files with no
-standard extension or no self-describing structure.
-
-Examples:
-
-```text
-Gvol.000001
-V.000001
-P.000001
-VOF.000001
-field000120
-```
-
-This class is acceptable, but only if the package includes explicit reading
-instructions.
-
-Required metadata:
-
-- binary format description;
-- header size in bytes;
-- dtype;
-- endianness;
-- payload shape;
-- vector component layout, if applicable;
-- reshape order;
-- file path pattern;
-- units;
-- grid dimensions and coordinate convention;
-- example code that reads at least one field correctly.
-
-Required additional file:
-
-```text
-load_example.py
-```
-
-For this class, `load_example.py` is mandatory. Without it, most external users
-cannot reliably decode the data.
-
-## Required Package Files
-
-Every Kaggle dataset package must include:
+Required:
 
 ```text
 dataset-metadata.json
@@ -161,11 +28,25 @@ info.json
 data/
 ```
 
-### `dataset-metadata.json`
+Strongly recommended:
 
-This is required by Kaggle.
+```text
+load_example.py
+README.md
+checksums.sha256
+```
 
-Minimum content:
+## `dataset-metadata.json`
+
+This file is required by Kaggle.
+
+Following the BlastNet tutorial, it is usually generated automatically by:
+
+```bash
+kaggle datasets init -p <path/to/dataset>
+```
+
+After generation, edit:
 
 ```json
 {
@@ -179,88 +60,146 @@ Minimum content:
 }
 ```
 
-The owner in `id` must match the Kaggle username in `~/.kaggle/kaggle.json`.
+The owner in `id` must match the Kaggle username.
 
-### `info.json`
+## `info.json`
 
-This is the authoritative metadata file for Multiphase Data Hub. It should not
-be treated as optional documentation.
+`info.json` is the authoritative metadata file.
 
-Required `global` fields:
-
-- `dataset_id`;
-- `title`;
-- `description`;
-- `format`;
-- `snapshots` or number of samples;
-- `variables`;
-- `grid`;
-- `physics`;
-- `contributors`;
-- `license`;
-- `doi` or citation note;
-- `known_limitations`, if any.
-
-Required `local` records:
-
-- snapshot/sample id;
-- time value if available;
-- file paths for each variable included in that snapshot/sample.
-
-The `info.json` must match the actual uploaded files. If only `Gvol` is
-uploaded, `info.json` must not list missing variables such as velocity or
-pressure as available files.
-
-### `data/`
-
-The `data/` directory contains the actual field data. Subdirectories are
-recommended:
+It should contain:
 
 ```text
-data/Gvol/
-data/V/
-data/P/
-data/train/
-data/test/
+global: dataset-level information
+local: snapshot/case/sample-level file paths and time information
 ```
 
-The layout may differ by dataset, but it must be described in `info.json`.
+Required `global` information:
 
-## Strongly Recommended Files
+- dataset id;
+- title;
+- description;
+- format;
+- number of snapshots or samples;
+- variables;
+- grid;
+- physics;
+- contributors;
+- license;
+- DOI or citation note;
+- known limitations.
 
-### `load_example.py`
+Required `local` information:
 
-Recommended for all datasets and mandatory for solver-specific binary files.
+- snapshot or sample id;
+- time, if available;
+- file paths for variables included in that snapshot/sample.
+
+`info.json` must match the actual uploaded files. If only `Gvol` is uploaded,
+do not list missing `V` or `P` files as available.
+
+## `data/`
+
+`data/` stores the actual field data.
+
+Accepted data types include:
+
+```text
+1. Preprocessed array formats:
+   .npy, .npz, .h5, .hdf5, .zarr, NetCDF
+
+2. Common CFD or visualization formats:
+   .dat, .vtk, .vti, .vtu, .vtr, .xdmf + .h5, EnSight, OpenFOAM
+
+3. Solver-specific binary files without standard extensions:
+   Gvol.000001, V.000001, P.000001, VOF.000001
+```
+
+For the first two types, document variables, shapes, units, grid, and reading
+method in `info.json`.
+
+For solver-specific binary files, additionally document:
+
+- header bytes;
+- dtype;
+- endianness;
+- payload shape;
+- vector component layout;
+- reshape order;
+- file path pattern;
+- units;
+- grid dimensions and coordinate convention.
+
+For solver-specific binary files, `load_example.py` is mandatory.
+
+## Required Multiphase Variables
+
+For a complete two-phase or multiphase CFD dataset, the recommended required
+variable groups are:
+
+```text
+velocity
+pressure
+interface variable
+```
+
+Examples:
+
+```text
+velocity: u, v, w, or V
+pressure: p or P
+interface: alpha, Gvol, VOF, phi, level-set, interface mask
+```
+
+The interface phase convention must be documented, for example whether `Gvol=1`
+means liquid or gas.
+
+Optional variables include:
+
+```text
+curvature: kappa, Gcurv
+normal vector: normal, Gnorm
+density field: rho
+viscosity field: mu
+temperature: T
+species: Y_i
+vorticity, strain rate, dissipation, and other diagnostics
+```
+
+If `rho`, `mu`, `sigma`, or `g` are fixed case parameters, they should usually
+be stored in metadata rather than uploaded as field variables.
+
+## `load_example.py`
+
+Strongly recommended for all datasets and mandatory for solver-specific binary
+files.
 
 The script should:
 
-- run from the dataset root directory;
-- read at least one sample/snapshot;
+- run from the dataset root;
+- read at least one snapshot or sample;
 - print variable names, shapes, dtype, min, and max;
-- avoid requiring private code;
-- use common Python packages where possible.
+- avoid private code;
+- use common Python packages when possible.
 
-For large datasets, the loader may read only one file or one slice.
+## `README.md`
 
-### `README.md`
-
-Recommended but should remain short. It does not need to repeat all metadata in
+Recommended but should remain short. It does not need to repeat all details in
 `info.json`.
 
 Suggested content:
 
 ```text
-Dataset name
-One-paragraph description
-List of included variables
-Instruction: see info.json for full metadata
-Instruction: use load_example.py for Python reading
-Kaggle/DOI citation note
+dataset name
+one-paragraph description
+included variables
+see info.json for full metadata
+see load_example.py for Python reading
+citation or DOI
 ```
 
-### `checksums.sha256`
+## `checksums.sha256`
 
-Recommended for integrity verification, especially for large binary datasets.
+Recommended for file-integrity verification.
 
 Generate with:
 
@@ -270,7 +209,7 @@ find . -type f ! -name checksums.sha256 -print0 | sort -z | xargs -0 sha256sum >
 
 ## Optional Files
 
-Include these only when useful:
+Include as needed:
 
 ```text
 figures/
@@ -281,81 +220,24 @@ case files
 mesh files
 ```
 
-Examples:
+For uniform Cartesian grids, coordinate files are not required if `info.json`
+fully specifies dimensions, bounds, spacing, coordinate order, and field
+location. If the grid cannot be reconstructed from metadata, upload mesh,
+coordinate, or geometry files.
 
-- preview images;
-- conversion scripts;
-- preprocessing scripts;
-- train/validation/test split files;
-- solver input files;
-- mesh or coordinate files;
-- original case file for ParaView/EnSight/OpenFOAM.
+## Upload Checklist
 
-## Minimum `info.json` Template
-
-```json
-{
-  "schema_version": "0.1.0",
-  "dataset_type": "multiphase_flow_simulation",
-  "global": {
-    "dataset_id": "kaggle-user/dataset-slug",
-    "title": "Dataset title",
-    "description": "Short dataset description.",
-    "format": "NPZ / HDF5 / VTK / EnSight binary / custom binary",
-    "snapshots": 1,
-    "variables": ["Gvol", "V", "P"],
-    "grid": {
-      "type": "uniform_cartesian",
-      "cell_dims": [256, 256, 256],
-      "domain_bounds_xyz": [[-3.14159, 3.14159], [-3.14159, 3.14159], [-3.14159, 3.14159]],
-      "field_location": "cell_centered",
-      "coordinate_order": "x,y,z"
-    },
-    "physics": {
-      "flow_type": "two_phase_flow",
-      "configuration": "droplet breakup in homogeneous isotropic turbulence",
-      "physical_parameters": {
-        "density_liquid": "TBD",
-        "density_gas": "TBD",
-        "viscosity_liquid": "TBD",
-        "viscosity_gas": "TBD",
-        "surface_tension": "TBD"
-      },
-      "boundary_conditions": "TBD",
-      "initial_conditions": "TBD"
-    },
-    "contributors": ["TBD"],
-    "license": "TBD",
-    "doi": "TBD",
-    "known_limitations": []
-  },
-  "local": [
-    {
-      "id": 0,
-      "snapshot_id": "000001",
-      "time": {
-        "value": null,
-        "units": "TBD"
-      },
-      "files": {
-        "Gvol": "./data/Gvol/Gvol.000001"
-      }
-    }
-  ]
-}
-```
-
-## Acceptance Checklist
-
-Before submitting a dataset link to Multiphase Data Hub, verify:
+Before uploading or submitting a dataset, verify:
 
 - `dataset-metadata.json` exists and has the correct Kaggle owner id;
-- `info.json` exists and matches actual uploaded files;
-- all listed file paths exist;
-- variable units and shapes are documented;
+- `info.json` exists;
+- all file paths listed in `info.json` exist;
+- velocity, pressure, and interface variables are included, or missing groups
+  are explicitly explained;
+- units, shapes, and dtype are documented;
 - grid reconstruction is possible;
-- phase convention is documented, for example whether `Gvol=1` denotes liquid;
+- phase convention is documented;
 - at least one sample can be read with Python;
-- custom binary data include `load_example.py`;
+- solver-specific binary files include `load_example.py`;
 - license and citation information are clear.
 
