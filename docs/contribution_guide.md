@@ -16,10 +16,11 @@ for reproducible research.
 
 Recommended public hosts:
 
+- ModelScope for China-accessible public dataset hosting;
+- Kaggle for international machine-learning community access;
 - Zenodo for DOI-backed archival releases;
 - Figshare or institutional repositories for citable data packages;
 - Hugging Face Datasets for ML-friendly public access;
-- Kaggle for competition-style datasets;
 - project object storage for very large datasets, with clear persistence notes.
 
 The website repository should not store large data archives.

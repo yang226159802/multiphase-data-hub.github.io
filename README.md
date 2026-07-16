@@ -11,10 +11,11 @@ The repository is designed to host:
 - contribution and review guidelines;
 - data-format recommendations for reproducible AI use.
 
-Large data files should live outside this website repository, for example on
-Zenodo, Figshare, Kaggle, Hugging Face Datasets, institutional object storage,
-or a project server. This repository stores persistent links, metadata,
-checksums, documentation, and example loaders.
+Large data files should live outside this website repository. Recommended hosts
+are ModelScope for China-accessible distribution, Kaggle for international
+distribution, Zenodo for DOI-backed archival releases, or institutional object
+storage for very large datasets. This repository stores persistent links,
+metadata, checksums, documentation, and example loaders.
 
 For simulation datasets, the data package itself should include a
 `multiphase_info.json` file. This follows the BlastNet-style separation between
@@ -83,8 +84,8 @@ The first version deliberately uses the smallest possible toolchain:
 
 - GitHub: hosts the website repository and accepts pull requests.
 - GitHub Pages: publishes the static website for free.
-- Zenodo, Hugging Face Datasets, Kaggle, Figshare, or institutional storage:
-  hosts large data archives.
+- ModelScope, Kaggle, Zenodo, or institutional storage: hosts large data
+  archives.
 - JSON metadata files: describe datasets in a machine-readable way.
 - Optional Python scripts: provide minimal data loaders and validation helpers.
 

@@ -1,19 +1,20 @@
 const datasets = [
   {
-    id: "random_interfaces_n256_to_n64_interface_patches_v2",
-    title: "Random VOF Interface Patches: N256 to N64",
+    id: "hit_droplet_breakup_ensight_gvol_gcurv_v_subset",
+    title: "HIT Droplet Breakup: Gvol, Gcurv, and Velocity",
     summary:
-      "AI-ready 3D VOF patch dataset generated from randomized analytic interfaces initialized in NGA2, paired between high-resolution N256 fields and low-resolution N64 volume averages.",
+      "Raw EnSight Gold subset from a 3D droplet breakup case in homogeneous isotropic turbulence, including selected Gvol, Gcurv, and velocity snapshots.",
     status: "seed",
     modality: "simulation",
-    physics: ["VOF", "two-phase flow", "random interfaces", "periodic box"],
-    tasks: ["super-resolution", "closure modeling", "interface reconstruction"],
-    samples: "362,264 patches",
-    resolution: "HR 16^3 patch, LR 4^3 patch",
-    format: "NPZ + JSON metadata",
-    license: "TBD before release",
-    detailUrl: "dataset-random-vof-patches.html",
-    metadataUrl: "../datasets/random_interfaces_n256_to_n64_interface_patches_v2.json"
+    physics: ["VOF", "two-phase flow", "droplet breakup", "homogeneous isotropic turbulence"],
+    tasks: ["interface dynamics", "curvature analysis", "flow-field learning"],
+    samples: "67 snapshots",
+    resolution: "256^3 cells",
+    format: "EnSight Gold binary",
+    license: "TBD",
+    dataUrl: "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+    detailUrl: "dataset-hit-droplet-breakup.html",
+    metadataUrl: "../datasets/hit_droplet_breakup_ensight_gvol_gcurv_v_subset.json"
   }
 ];
 
@@ -46,6 +47,7 @@ function render(items) {
         </div>
         <div class="card-actions">
           <a href="${dataset.detailUrl}">Dataset page</a>
+          <a href="${dataset.dataUrl}">ModelScope</a>
           <a href="${dataset.metadataUrl}">Metadata JSON</a>
         </div>
       </article>

@@ -159,6 +159,17 @@ h3 {
   color: #fff;
 }
 
+.button.outline {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+.button.disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
 .hero-visual {
   margin: 0;
   border-radius: 8px;
@@ -179,6 +190,24 @@ h3 {
   padding: 12px 14px;
   color: rgba(255, 255, 255, 0.76);
   font-size: 13px;
+}
+
+.placeholder-visual {
+  min-height: 360px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.10) 0 1px, transparent 1px 18px);
+}
+
+.placeholder-card {
+  min-height: 260px;
+  align-content: center;
+}
+
+.placeholder-image {
+  min-height: 260px;
+  object-fit: cover;
+  background: var(--soft);
 }
 
 .metrics-strip {
@@ -406,6 +435,18 @@ h3 {
   gap: 12px;
   color: var(--muted);
   padding-left: 20px;
+}
+
+.section-copy {
+  max-width: 760px;
+  color: var(--muted);
+}
+
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
 }
 
 .footer {
