@@ -40,9 +40,14 @@ multiphase-data-hub/
   README.md
   website/
     index.html
+    datasets.html
     dataset-random-vof-patches.html
+    dataset-hit-droplet-breakup.html
     standard.html
     contribute.html
+    hosting.html
+    governance.html
+    about.html
     styles.css
     datasets.js
     assets/
@@ -56,6 +61,7 @@ multiphase-data-hub/
     kaggle_dataset_package_standard_zh.md
     launch_checklist.md
     roadmap.md
+    v0.1_release_notes.md
   templates/
     dataset_info.schema.json
     dataset_info.template.json
@@ -75,8 +81,15 @@ Recommended deployment:
 3. Enable GitHub Pages from the repository root and use `website/index.html` as
    the public entry point, or move website files to the repository root before
    publishing.
-4. Upload large datasets to Zenodo or Hugging Face Datasets and paste the
-   resulting DOI/URL into the dataset metadata record.
+4. Upload large datasets to ModelScope, Kaggle, Zenodo, or institutional
+   storage and paste the resulting landing-page URL into the dataset metadata
+   record.
+
+For the v0.1 site, the recommended hosting policy is:
+
+- ModelScope for China-accessible dataset distribution.
+- Kaggle for international dataset mirrors and AI-community access.
+- Zenodo when a standalone DOI-backed archival release is needed.
 
 ## Tools Needed
 
@@ -118,3 +131,15 @@ The portal should accept datasets from:
   high-speed imaging;
 - AI-ready derived products such as patches, closures, super-resolution pairs,
   segmentation labels, reduced-order snapshots, and benchmark splits.
+
+## v0.1 Status
+
+The first public structure includes:
+
+- one seed dataset record for droplet breakup in homogeneous isotropic
+  turbulence;
+- an English website with Home, Datasets, Data Standard, Contribute, Hosting,
+  Governance, and About pages;
+- metadata templates for catalogue records and multiphase-flow simulation data;
+- a contribution workflow based on externally hosted data and reviewed
+  metadata.

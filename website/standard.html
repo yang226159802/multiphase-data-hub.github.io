@@ -11,72 +11,91 @@
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="index.html">Multiphase Data Hub</a>
         <div class="nav-links">
-          <a href="index.html#datasets">Datasets</a>
+          <a href="datasets.html">Datasets</a>
           <a href="standard.html">Standard</a>
           <a href="contribute.html">Contribute</a>
+          <a href="hosting.html">Hosting</a>
+          <a href="governance.html">Governance</a>
+          <a href="about.html">About</a>
         </div>
       </nav>
       <div class="page-title">
-        <p class="eyebrow">Data standard</p>
-        <h1>Metadata that makes multiphase-flow data reusable.</h1>
+        <p class="eyebrow">Data Standard</p>
+        <h1>Metadata first, format flexible.</h1>
         <p>
-          Every dataset should describe the physics, numerics or experiment,
-          file structure, units, splits, provenance, license, and citation.
+          The catalogue accepts multiple scientific data formats, but every
+          dataset must make variables, grid, units, file paths, and physical
+          assumptions unambiguous.
         </p>
       </div>
     </header>
 
     <main>
       <section class="section">
+        <p class="eyebrow">Core Principle</p>
+        <h2>Do not force one file format. Force clear meaning.</h2>
+        <p class="section-copy">
+          Multiphase-flow datasets may come from EnSight, VTK, HDF5, Zarr,
+          NetCDF, NPZ, or solver-specific binary outputs. The required standard
+          is not a single storage format; it is a complete metadata record that
+          makes external reuse practical.
+        </p>
+      </section>
+
+      <section class="section band">
+        <p class="eyebrow">Complete CFD Flow Fields</p>
+        <h2>Required information for simulation datasets</h2>
         <div class="standard-list">
           <article>
+            <h3>Flow Variables</h3>
+            <p>Velocity, pressure, and one interface or phase-indicator representation such as <code>alpha</code>, <code>Gvol</code>, <code>VOF</code>, or <code>phi</code>.</p>
+          </article>
+          <article>
+            <h3>Grid</h3>
+            <p>Dimensions, coordinate bounds, grid type, coordinate order, field location, and geometry files when the grid is not trivially uniform.</p>
+          </article>
+          <article>
             <h3>Physics</h3>
-            <p>Flow configuration, phases, material properties, dimensionless groups, boundary conditions, and governing assumptions.</p>
-          </article>
-          <article>
-            <h3>Numerics</h3>
-            <p>Solver, discretization, grid, interface method, time stepping, convergence notes, and known limitations.</p>
-          </article>
-          <article>
-            <h3>Experiment</h3>
-            <p>Measurement method, calibration, uncertainty, camera or probe settings, acquisition rate, and post-processing.</p>
-          </article>
-          <article>
-            <h3>AI readiness</h3>
-            <p>Array names, shapes, units, coordinate order, splits, preprocessing, baselines, and evaluation metrics.</p>
+            <p>Phase convention, boundary conditions, initial conditions, material parameters, and relevant dimensionless numbers.</p>
           </article>
           <article>
             <h3>Provenance</h3>
-            <p>Authors, institution, software version, generation scripts, hardware notes, release version, and checksums.</p>
-          </article>
-          <article>
-            <h3>Reuse terms</h3>
-            <p>License, citation, DOI or persistent URL, contact person, and restrictions for redistribution or commercial use.</p>
+            <p>Solver or instrument, generation method, contributors, citation, license, and known limitations.</p>
           </article>
         </div>
       </section>
 
+      <section class="section">
+        <p class="eyebrow">Fixed Parameters</p>
+        <h2>Material properties belong in metadata unless they vary as fields.</h2>
+        <p class="section-copy">
+          Density, viscosity, surface tension, gravity, Reynolds number, Weber
+          number, and related case settings should usually be stored in
+          <code>info.json</code>, not as field variables. Store them as variables
+          only when they genuinely vary in space or time.
+        </p>
+      </section>
+
       <section class="section band">
-        <p class="eyebrow">Recommended formats</p>
-        <h2>Use common scientific formats with documented loaders.</h2>
-        <div class="detail-grid">
-          <article class="detail-card">
-            <h3>HDF5 / Zarr</h3>
-            <p>Best for large multidimensional fields and time-resolved data.</p>
-          </article>
-          <article class="detail-card">
-            <h3>NPZ</h3>
-            <p>Good for compact AI-ready tensors and small benchmarks.</p>
-          </article>
-          <article class="detail-card">
-            <h3>VTK / XDMF / EnSight</h3>
-            <p>Useful for CFD field outputs and visualization workflows.</p>
-          </article>
-          <article class="detail-card">
-            <h3>CSV / Parquet</h3>
-            <p>Appropriate for diagnostics, scalar metrics, and case summaries.</p>
-          </article>
-        </div>
+        <p class="eyebrow">Metadata Layout</p>
+        <h2>Use global and local sections.</h2>
+        <pre class="code-block"><code>{
+  "global": {
+    "title": "...",
+    "variables": [...],
+    "grid": {...},
+    "physics": {...},
+    "license": "...",
+    "citation": "..."
+  },
+  "local": [
+    {
+      "snapshot_id": "000001",
+      "time": {"value": 0.0, "units": "..."},
+      "files": {"Gvol": "data/Gvol/Gvol.000001"}
+    }
+  ]
+}</code></pre>
       </section>
     </main>
 

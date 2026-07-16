@@ -11,9 +11,12 @@
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="index.html">Multiphase Data Hub</a>
         <div class="nav-links">
-          <a href="index.html#datasets">Datasets</a>
+          <a href="datasets.html">Datasets</a>
           <a href="standard.html">Standard</a>
           <a href="contribute.html">Contribute</a>
+          <a href="hosting.html">Hosting</a>
+          <a href="governance.html">Governance</a>
+          <a href="about.html">About</a>
         </div>
       </nav>
       <div class="page-title">
@@ -64,6 +67,22 @@
       </section>
 
       <section class="section">
+        <p class="eyebrow">Dataset Summary</p>
+        <h2>Seed record for the v0.1 catalogue.</h2>
+        <table class="data-table">
+          <tbody>
+            <tr><th>Flow configuration</th><td>Droplet breakup in homogeneous isotropic turbulence</td></tr>
+            <tr><th>Released variables</th><td><code>Gvol</code>, <code>Gcurv</code>, <code>V</code></td></tr>
+            <tr><th>Format</th><td>Raw EnSight Gold binary subset</td></tr>
+            <tr><th>Grid</th><td>Structured 3D grid, 256 x 256 x 256 cells</td></tr>
+            <tr><th>Snapshot rule</th><td>Selected from the raw sequence: 000001, 000007, 000013, ...</td></tr>
+            <tr><th>Primary host</th><td>ModelScope</td></tr>
+            <tr><th>Kaggle mirror</th><td>Planned</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
         <p class="eyebrow">Raw Format</p>
         <h2>EnSight files are preserved as the released data format.</h2>
         <div class="detail-grid">
@@ -84,6 +103,18 @@
             <p><code>info.json</code> and <code>multiphase_info.json</code> document variables, grid, snapshot selection, and file paths.</p>
           </article>
         </div>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">Known Metadata Gaps</p>
+        <h2>Items to finalize before broad solicitation.</h2>
+        <ul class="checklist">
+          <li>Dataset license and citation policy.</li>
+          <li>Related paper DOI or standalone dataset DOI.</li>
+          <li>Phase convention for <code>Gvol</code>.</li>
+          <li>Units for <code>V</code>, <code>Gcurv</code>, and time.</li>
+          <li>Physical parameters such as density ratio, viscosity ratio, Weber number, and boundary conditions.</li>
+        </ul>
       </section>
 
       <section class="section split">

@@ -11,18 +11,21 @@
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="index.html">Multiphase Data Hub</a>
         <div class="nav-links">
-          <a href="index.html#datasets">Datasets</a>
+          <a href="datasets.html">Datasets</a>
           <a href="standard.html">Standard</a>
           <a href="contribute.html">Contribute</a>
+          <a href="hosting.html">Hosting</a>
+          <a href="governance.html">Governance</a>
+          <a href="about.html">About</a>
         </div>
       </nav>
       <div class="page-title">
         <p class="eyebrow">Contribute</p>
-        <h1>Submit datasets without handing the data to the website itself.</h1>
+        <h1>Submit a dataset record, not the data files themselves.</h1>
         <p>
-          Contributors host large data on stable storage and submit metadata to
-          this catalogue. The review focuses on clarity, license, provenance,
-          and reproducibility.
+          Contributors host large files on ModelScope, Kaggle, Zenodo, or
+          institutional storage. This catalogue reviews and publishes metadata,
+          access links, documentation, and citation information.
         </p>
       </div>
     </header>
@@ -32,44 +35,53 @@
         <div class="workflow">
           <article>
             <span>1</span>
-            <h3>Prepare</h3>
-            <p>Package data with a README, metadata JSON, checksums, and at least one loading example.</p>
+            <h3>Package</h3>
+            <p>Prepare data files, <code>README.md</code>, <code>info.json</code>, checksums, and a reader note or example script.</p>
           </article>
           <article>
             <span>2</span>
-            <h3>Archive</h3>
-            <p>Upload to ModelScope for China-accessible hosting, Kaggle for international access, or Zenodo for archival DOI releases.</p>
+            <h3>Host</h3>
+            <p>Upload to ModelScope for China-accessible distribution, Kaggle for international access, or Zenodo for DOI-backed release.</p>
           </article>
           <article>
             <span>3</span>
             <h3>Submit</h3>
-            <p>Open a GitHub pull request that adds one JSON file under the catalogue datasets folder.</p>
+            <p>Open a GitHub issue or pull request with the metadata record, preview figure, download link, license, and citation.</p>
           </article>
         </div>
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Acceptance checklist</p>
+        <p class="eyebrow">Acceptance Checklist</p>
         <h2>Minimum bar for catalogue inclusion</h2>
         <ul class="checklist">
-          <li>Dataset has an explicit data license.</li>
-          <li>Dataset has a stable URL or DOI.</li>
-          <li>Variables, units, array shapes, and coordinate order are documented.</li>
-          <li>Simulation or experimental provenance is described.</li>
-          <li>AI datasets include split policy and leakage-prevention notes.</li>
-          <li>At least one external user can load a sample with the provided documentation.</li>
+          <li>Data are hosted outside this website repository.</li>
+          <li>Download or landing-page URL is public or clearly access-controlled.</li>
+          <li>License and citation are explicit.</li>
+          <li>Variables, units, shapes, and field locations are documented.</li>
+          <li>Grid, coordinates, boundary conditions, and phase convention are described.</li>
+          <li>Solver-specific binary files include header, dtype, payload shape, and reading instructions.</li>
+          <li>At least one representative image or preview figure is provided.</li>
         </ul>
       </section>
 
       <section class="section">
-        <p class="eyebrow">Template</p>
-        <h2>Metadata starts from a JSON record.</h2>
-        <p>
-          Use the repository template at
-          <a class="text-link" href="../templates/dataset_info.template.json">dataset_info.template.json</a>.
-          The schema is available at
-          <a class="text-link" href="../templates/dataset_info.schema.json">dataset_info.schema.json</a>.
-        </p>
+        <p class="eyebrow">Submission Metadata</p>
+        <h2>Start from the project templates.</h2>
+        <div class="detail-grid">
+          <article class="detail-card">
+            <h3>Dataset Record</h3>
+            <p><a class="text-link" href="../templates/dataset_info.template.json">dataset_info.template.json</a> describes the catalogue-level record used by the website.</p>
+          </article>
+          <article class="detail-card">
+            <h3>Simulation Metadata</h3>
+            <p><a class="text-link" href="../templates/multiphase_info.template.json">multiphase_info.template.json</a> describes the simulation package using global and local metadata.</p>
+          </article>
+          <article class="detail-card">
+            <h3>Hosting Guide</h3>
+            <p><a class="text-link" href="hosting.html">Read the hosting guide</a> for ModelScope, Kaggle, and Zenodo platform choices.</p>
+          </article>
+        </div>
       </section>
     </main>
 

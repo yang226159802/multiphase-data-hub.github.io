@@ -25,6 +25,21 @@ Recommended public hosts:
 
 The website repository should not store large data archives.
 
+## Platform Summary
+
+The detailed internal upload tutorials are intentionally not copied into the
+public website. The public contribution pages should show only the durable
+workflow:
+
+- prepare a readable data package;
+- include `README.md`, `info.json`, data files, checksums, and a loading example
+  for solver-specific binary formats;
+- upload to ModelScope, Kaggle, Zenodo, or institutional storage;
+- submit the public landing page and metadata record for catalogue review.
+
+Operational details such as API tokens, proxy settings, and account-specific
+commands should remain outside the public website.
+
 ## Minimum Acceptance Criteria
 
 A submitted dataset should have:

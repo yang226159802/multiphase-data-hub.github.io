@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Datasets | Multiphase Data Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="index.html">Multiphase Data Hub</a>
+        <div class="nav-links">
+          <a href="datasets.html">Datasets</a>
+          <a href="standard.html">Standard</a>
+          <a href="contribute.html">Contribute</a>
+          <a href="hosting.html">Hosting</a>
+          <a href="governance.html">Governance</a>
+          <a href="about.html">About</a>
+        </div>
+      </nav>
+      <div class="page-title">
+        <p class="eyebrow">Catalogue</p>
+        <h1>Dataset catalogue</h1>
+        <p>
+          Browse public multiphase-flow datasets indexed by this project. Data
+          files are hosted externally; this site maintains metadata, access
+          links, documentation, and review status.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section id="datasets" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Records</p>
+            <h2>Indexed datasets</h2>
+          </div>
+          <label class="search">
+            <span>Search datasets</span>
+            <input id="dataset-search" type="search" placeholder="VOF, droplet, EnSight, ModelScope" />
+          </label>
+        </div>
+        <div class="dataset-grid" id="dataset-grid"></div>
+      </section>
+
+      <section class="section band">
+        <p class="eyebrow">Record Status</p>
+        <h2>How records are labelled</h2>
+        <div class="standard-list">
+          <article>
+            <h3>Seed</h3>
+            <p>Maintainer-provided dataset used to establish metadata and packaging conventions.</p>
+          </article>
+          <article>
+            <h3>Community</h3>
+            <p>External contribution that passes metadata, license, and access review.</p>
+          </article>
+          <article>
+            <h3>Benchmark</h3>
+            <p>Curated record with stable splits, baseline methods, and evaluation metrics.</p>
+          </article>
+          <article>
+            <h3>Archived</h3>
+            <p>Retained for citation, but not actively maintained.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Multiphase Data Hub</span>
+      <span>Dataset catalogue</span>
+    </footer>
+    <script src="datasets.js"></script>
+  </body>
+</html>

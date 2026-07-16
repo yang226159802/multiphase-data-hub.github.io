@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hosting Guide | Multiphase Data Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="index.html">Multiphase Data Hub</a>
+        <div class="nav-links">
+          <a href="datasets.html">Datasets</a>
+          <a href="standard.html">Standard</a>
+          <a href="contribute.html">Contribute</a>
+          <a href="hosting.html">Hosting</a>
+          <a href="governance.html">Governance</a>
+          <a href="about.html">About</a>
+        </div>
+      </nav>
+      <div class="page-title">
+        <p class="eyebrow">Hosting</p>
+        <h1>Where large datasets should live</h1>
+        <p>
+          The website stores metadata and links. Large files should be uploaded
+          to a dataset platform or institutional storage.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="standard-list">
+          <article>
+            <h3>ModelScope</h3>
+            <p>Recommended for China-accessible public distribution. Use Git and Git LFS for large binary data, and include <code>README.md</code>, <code>info.json</code>, and a clear <code>data/</code> layout.</p>
+          </article>
+          <article>
+            <h3>Kaggle</h3>
+            <p>Recommended for international AI and data-science users. Include <code>dataset-metadata.json</code>, <code>info.json</code>, and documented data files. CLI upload from clusters may require network configuration.</p>
+          </article>
+          <article>
+            <h3>Zenodo</h3>
+            <p>Recommended when a standalone dataset DOI is needed. Use it for archival releases and citeable snapshots.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section band">
+        <p class="eyebrow">Minimum Package</p>
+        <h2>Every hosted dataset should include these files.</h2>
+        <pre class="code-block"><code>README.md
+info.json
+data/
+checksums.sha256
+load_example.py  # required for solver-specific binary formats</code></pre>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">Binary CFD Files</p>
+        <h2>Custom or extensionless files need explicit reading metadata.</h2>
+        <p class="section-copy">
+          For files such as <code>Gvol.000001</code>, <code>V.000001</code>,
+          or other solver-specific binary outputs, the metadata should specify
+          header size, dtype, payload shape, vector-component order, reshape
+          order, grid association, and field location. A loading example is
+          required so external users can verify that the data are readable.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Multiphase Data Hub</span>
+      <span>Hosting guide</span>
+    </footer>
+  </body>
+</html>

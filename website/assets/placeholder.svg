@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="Dataset visual pending">
-  <rect width="1200" height="720" fill="#e9efeb"/>
-  <path d="M0 120h1200M0 240h1200M0 360h1200M0 480h1200M0 600h1200M200 0v720M400 0v720M600 0v720M800 0v720M1000 0v720" stroke="#d4ddd6" stroke-width="2"/>
-  <rect x="360" y="278" width="480" height="164" rx="8" fill="#ffffff" stroke="#d9dfd9"/>
-  <text x="600" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#16201d">Dataset Visual Pending</text>
-  <text x="600" y="392" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#5f6b64">Replace with the official ModelScope case figure</text>
-</svg>

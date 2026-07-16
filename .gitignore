@@ -18,3 +18,5 @@ __pycache__/
 *.hdf5
 *.zarr/
 
+# Local source figures before they are renamed into website/assets.
+图片*.png
