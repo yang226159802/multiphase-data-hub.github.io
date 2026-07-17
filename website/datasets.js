@@ -1,7 +1,7 @@
 const datasets = [
   {
     id: "dns_droplet_breakup_hit_we15",
-    title: "DNS of Droplet Breakup in HIT (We = 15)",
+    title: "Droplet breakup in HIT",
     summary:
       "Direct numerical simulation data for a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15.",
     status: "seed",
@@ -13,8 +13,7 @@ const datasets = [
     format: "custom binary",
     license: "CC BY 4.0",
     dataUrl: "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
-    detailUrl: "dataset-hit-droplet-breakup.html",
-    metadataUrl: "../datasets/dns_droplet_breakup_hit_we15.json"
+    detailUrl: "dataset-hit-droplet-breakup.html"
   }
 ];
 
@@ -48,7 +47,6 @@ function render(items) {
         <div class="card-actions">
           <a href="${dataset.detailUrl}">Dataset page</a>
           <a href="${dataset.dataUrl}">ModelScope</a>
-          <a href="${dataset.metadataUrl}">Metadata JSON</a>
         </div>
       </article>
     `
