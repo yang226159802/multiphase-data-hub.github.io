@@ -1,20 +1,20 @@
 const datasets = [
   {
-    id: "hit_droplet_breakup_ensight_gvol_gcurv_v_subset",
-    title: "HIT Droplet Breakup: Gvol, Gcurv, and Velocity",
+    id: "dns_droplet_breakup_hit_we15",
+    title: "DNS of Droplet Breakup in HIT (We = 15)",
     summary:
-      "Raw EnSight Gold subset from a 3D droplet breakup case in homogeneous isotropic turbulence, including selected Gvol, Gcurv, and velocity snapshots.",
+      "Direct numerical simulation data for a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15.",
     status: "seed",
     modality: "simulation",
     physics: ["VOF", "two-phase flow", "droplet breakup", "homogeneous isotropic turbulence"],
-    tasks: ["interface dynamics", "curvature analysis", "flow-field learning"],
-    samples: "67 snapshots",
+    tasks: ["interface dynamics", "flow-field learning", "DNS analysis"],
+    samples: "81 snapshots",
     resolution: "256^3 cells",
-    format: "EnSight Gold binary",
-    license: "TBD",
+    format: "custom binary",
+    license: "CC BY 4.0",
     dataUrl: "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
     detailUrl: "dataset-hit-droplet-breakup.html",
-    metadataUrl: "../datasets/hit_droplet_breakup_ensight_gvol_gcurv_v_subset.json"
+    metadataUrl: "../datasets/dns_droplet_breakup_hit_we15.json"
   }
 ];
 

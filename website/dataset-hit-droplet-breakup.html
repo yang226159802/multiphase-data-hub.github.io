@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>HIT Droplet Breakup | Multiphase Data Hub</title>
+    <title>DNS of Droplet Breakup in HIT | Multiphase Data Hub</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -21,132 +21,112 @@
       </nav>
       <div class="page-title">
         <p class="eyebrow">Seed dataset</p>
-        <h1>HIT Droplet Breakup: Gvol, Gcurv, and Velocity</h1>
+        <h1>DNS of Droplet Breakup in HIT (We = 15)</h1>
         <p>
-          A raw EnSight Gold subset from a three-dimensional droplet breakup
-          case in homogeneous isotropic turbulence. The first public entry is
-          hosted on ModelScope, with Kaggle planned as an international mirror.
+          Direct numerical simulation data for a liquid droplet breaking up in
+          forced homogeneous isotropic turbulence.
         </p>
       </div>
     </header>
 
     <main>
       <section class="section detail-hero">
-        <div class="detail-grid">
-          <article class="detail-card">
-            <h3>Variables</h3>
-            <p><code>Gvol</code> volume fraction, <code>Gcurv</code> interface curvature, and <code>V</code> velocity vector.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Resolution</h3>
-            <p>Structured 3D grid with 256 x 256 x 256 cells and EnSight Gold binary geometry.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Snapshots</h3>
-            <p>67 selected files from the original 401 snapshots: 000001, 000007, 000013, ...</p>
-          </article>
-          <article class="detail-card">
-            <h3>Access</h3>
-            <p>Hosted on ModelScope. Kaggle mirror planned for international access.</p>
-          </article>
+        <div>
+          <p class="eyebrow">Description</p>
+          <h2>Velocity, pressure, and interface fields for droplet breakup.</h2>
+          <p class="section-copy">
+            This dataset contains DNS data of a deforming and breaking droplet
+            in homogeneous isotropic turbulence. The case corresponds to Weber
+            number <code>We = 15</code>, with unity density and viscosity ratios.
+            The released fields include volume fraction / phase indicator
+            <code>Gvol</code>, pressure <code>P</code>, and velocity vector
+            <code>V</code> over 81 snapshots.
+          </p>
+          <div class="download-actions">
+            <a class="button primary" href="https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15">Open on ModelScope</a>
+            <a class="button outline" href="../datasets/dns_droplet_breakup_hit_we15.json">Metadata JSON</a>
+          </div>
         </div>
         <img src="assets/hit_droplet_breakup_3d.png" alt="Droplet breakup in homogeneous isotropic turbulence" />
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Download</p>
-        <h2>Access the released case on ModelScope.</h2>
-        <p class="section-copy">
-          The data files are hosted externally. This website provides the
-          dataset description, metadata, and stable entry point.
-        </p>
-        <div class="download-actions">
-          <a class="button primary" href="https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15">Open on ModelScope</a>
-          <a class="button outline" href="../datasets/hit_droplet_breakup_ensight_gvol_gcurv_v_subset.json">Metadata JSON</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <p class="eyebrow">Dataset Summary</p>
-        <h2>Seed record for the v0.1 catalogue.</h2>
+        <p class="eyebrow">Quick Info</p>
+        <h2>Dataset facts</h2>
         <table class="data-table">
           <tbody>
-            <tr><th>Flow configuration</th><td>Droplet breakup in homogeneous isotropic turbulence</td></tr>
-            <tr><th>Released variables</th><td><code>Gvol</code>, <code>Gcurv</code>, <code>V</code></td></tr>
-            <tr><th>Format</th><td>Raw EnSight Gold binary subset</td></tr>
-            <tr><th>Grid</th><td>Structured 3D grid, 256 x 256 x 256 cells</td></tr>
-            <tr><th>Snapshot rule</th><td>Selected from the raw sequence: 000001, 000007, 000013, ...</td></tr>
-            <tr><th>Primary host</th><td>ModelScope</td></tr>
-            <tr><th>Kaggle mirror</th><td>Planned</td></tr>
+            <tr><th>Host</th><td><a class="text-link" href="https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15">ModelScope</a></td></tr>
+            <tr><th>Flow configuration</th><td>Droplet breakup in forced homogeneous isotropic turbulence</td></tr>
+            <tr><th>Method</th><td>Direct numerical simulation with a conservative level-set interface-capturing scheme</td></tr>
+            <tr><th>Weber number</th><td>15</td></tr>
+            <tr><th>Reynolds number</th><td>100</td></tr>
+            <tr><th>Density / viscosity ratios</th><td>Unity density ratio and unity viscosity ratio</td></tr>
+            <tr><th>Variables</th><td><code>Gvol</code>, <code>P</code>, <code>V</code></td></tr>
+            <tr><th>Snapshots</th><td>81 snapshots, <code>000001</code> to <code>000081</code></td></tr>
+            <tr><th>Grid</th><td>Uniform Cartesian grid, 256 x 256 x 256 cell-centered fields</td></tr>
+            <tr><th>Domain</th><td><code>[-pi, pi]^3</code></td></tr>
+            <tr><th>Format</th><td>Custom binary files with a 244-byte header and little-endian float32 payload</td></tr>
+            <tr><th>License</th><td>CC BY 4.0</td></tr>
+            <tr><th>Related article DOI</th><td><a class="text-link" href="https://doi.org/10.1016/j.ijmultiphaseflow.2018.06.009">10.1016/j.ijmultiphaseflow.2018.06.009</a></td></tr>
           </tbody>
         </table>
       </section>
 
       <section class="section">
-        <p class="eyebrow">Raw Format</p>
-        <h2>EnSight files are preserved as the released data format.</h2>
+        <p class="eyebrow">Files and Loading</p>
+        <h2>Use the provided reader for the raw binary fields.</h2>
         <div class="detail-grid">
           <article class="detail-card">
-            <h3>Case File</h3>
-            <p><code>arts_subset.case</code> defines geometry, variables, file patterns, and selected time values.</p>
+            <h3>Data Layout</h3>
+            <p><code>data/Gvol/</code>, <code>data/P/</code>, and <code>data/V/</code> contain snapshot files named by six-digit IDs.</p>
           </article>
           <article class="detail-card">
-            <h3>Grid</h3>
-            <p><code>geometry</code> stores the EnSight Gold binary structured geometry shared by all selected snapshots.</p>
+            <h3>Scalar Fields</h3>
+            <p><code>Gvol</code> and <code>P</code> contain 256 x 256 x 256 float32 values after the header.</p>
           </article>
           <article class="detail-card">
-            <h3>Data Folders</h3>
-            <p><code>Gvol/</code>, <code>Gcurv/</code>, and <code>V/</code> contain the selected raw variable files.</p>
+            <h3>Vector Field</h3>
+            <p><code>V</code> contains three consecutive components and is read as <code>(3, 256, 256, 256)</code>.</p>
           </article>
           <article class="detail-card">
-            <h3>Metadata</h3>
-            <p><code>info.json</code> and <code>multiphase_info.json</code> document variables, grid, snapshot selection, and file paths.</p>
+            <h3>Reader</h3>
+            <p>The ModelScope package includes <code>load_example.py</code> for listing snapshots and loading selected fields.</p>
           </article>
         </div>
-      </section>
-
-      <section class="section">
-        <p class="eyebrow">Known Metadata Gaps</p>
-        <h2>Items to finalize before broad solicitation.</h2>
-        <ul class="checklist">
-          <li>Dataset license and citation policy.</li>
-          <li>Related paper DOI or standalone dataset DOI.</li>
-          <li>Phase convention for <code>Gvol</code>.</li>
-          <li>Units for <code>V</code>, <code>Gcurv</code>, and time.</li>
-          <li>Physical parameters such as density ratio, viscosity ratio, Weber number, and boundary conditions.</li>
-        </ul>
+        <pre class="code-block"><code>python load_example.py --list
+python load_example.py 000001 --variables Gvol P V --mmap</code></pre>
       </section>
 
       <section class="section split">
         <div>
-          <p class="eyebrow">Interface Geometry</p>
-          <h2>Curvature and phase-indicator fields are included with velocity.</h2>
+          <p class="eyebrow">Initial Condition</p>
+          <h2>A spherical droplet is placed in statistically stationary HIT.</h2>
           <p>
-            The subset is intended as a first public example of how raw
-            multiphase-flow simulation outputs can be packaged without forcing
-            every contributor into a single AI-ready tensor format.
+            The turbulence is maintained by linear forcing. The initial velocity
+            field is synthesized from a Passot-Pouquet energy spectrum in
+            Fourier space. The case uses periodic boundary conditions in all
+            three directions.
           </p>
-          <a class="text-link" href="../datasets/hit_droplet_breakup_ensight_gvol_gcurv_v_subset.json">Open metadata JSON</a>
         </div>
         <img class="wide-figure" src="assets/hit_initial_droplet.png" alt="Initial droplet configuration" />
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Open in ParaView</p>
-        <h2>Use the EnSight case file as the entry point.</h2>
-        <pre class="code-block"><code>Open arts_subset.case in ParaView or another EnSight-compatible reader.
-
-The case file references:
-  geometry
-  Gvol/Gvol.******
-  Gcurv/Gcurv.******
-  V/V.******</code></pre>
+        <p class="eyebrow">Known Limitations</p>
+        <h2>Scope of the released case</h2>
+        <ul class="checklist">
+          <li>Density and viscosity ratios are unity, corresponding to a turbulent emulsion regime rather than high-density-ratio gas-liquid atomization.</li>
+          <li>The released case isolates the effect of Weber number; Reynolds number, density ratio, and viscosity ratio sweeps are not included.</li>
+          <li>The grid resolution is 256^3. Very small droplets or interface structures may be under-resolved.</li>
+          <li>Periodic boundary conditions idealize the flow and do not represent wall-bounded or confined configurations.</li>
+          <li>Mass conservation error reaches approximately 2.1% at the final state, according to the dataset metadata.</li>
+        </ul>
       </section>
     </main>
 
     <footer class="footer">
       <span>Multiphase Data Hub</span>
-      <span>HIT Droplet Breakup</span>
+      <span>DNS of Droplet Breakup in HIT</span>
     </footer>
   </body>
 </html>
