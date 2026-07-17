@@ -12,6 +12,7 @@ const datasets = [
     resolution: "256^3 cells",
     format: "custom binary",
     license: "CC BY 4.0",
+    imageUrl: "assets/hit_droplet_breakup_3d.png",
     dataUrl: "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
     detailUrl: "dataset-hit-droplet-breakup.html"
   }
@@ -24,6 +25,22 @@ const count = document.querySelector("#dataset-count");
 function render(items) {
   if (count) {
     count.textContent = String(datasets.length);
+  }
+
+  if (grid.dataset.layout === "gallery") {
+    grid.innerHTML = items
+      .map(
+        (dataset) => `
+        <article class="dataset-tile">
+          <a href="${dataset.detailUrl}" aria-label="${dataset.title}">
+            <img src="${dataset.imageUrl}" alt="${dataset.title}" />
+            <span>${dataset.title}</span>
+          </a>
+        </article>
+      `
+      )
+      .join("");
+    return;
   }
 
   grid.innerHTML = items

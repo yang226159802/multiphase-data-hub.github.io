@@ -278,6 +278,35 @@ h3 {
   gap: 18px;
 }
 
+.dataset-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 280px));
+  gap: 30px;
+  align-items: start;
+}
+
+.dataset-tile a {
+  display: grid;
+  gap: 14px;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dataset-tile img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(31, 45, 40, 0.14);
+}
+
 .dataset-card {
   background: var(--panel);
   border: 1px solid var(--line);
