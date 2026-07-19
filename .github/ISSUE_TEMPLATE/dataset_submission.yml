@@ -1,0 +1,167 @@
+name: Dataset submission
+description: Propose a dataset record for Multiphase Data Hub
+title: "[Dataset] "
+labels:
+  - dataset-submission
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a dataset. Please host the large data files on ModelScope, Kaggle, Zenodo, or institutional storage first. This GitHub issue is for submitting the catalogue record, preview information, and access links.
+
+  - type: input
+    id: title
+    attributes:
+      label: Dataset title
+      description: Use a concise case name suitable for the website dataset page.
+      placeholder: Droplet breakup in HIT
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide one clear paragraph describing the physical case, method/source, key parameters, and released fields.
+      placeholder: This dataset contains direct numerical simulation data of ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: hosting_platform
+    attributes:
+      label: Hosting platform
+      description: Where are the actual data files hosted?
+      options:
+        - ModelScope
+        - Kaggle
+        - Zenodo
+        - Institutional repository
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: access_link
+    attributes:
+      label: Public access link
+      description: Link to the dataset landing page or download page.
+      placeholder: https://modelscope.cn/datasets/owner/dataset-name
+    validations:
+      required: true
+
+  - type: input
+    id: contributors
+    attributes:
+      label: Contributors
+      description: List contributor names in display order.
+      placeholder: Changxiao Shao, Kun Luo, Yue Yang, Jianren Fan
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact
+      description: Email or GitHub handle for follow-up questions.
+      placeholder: name@example.edu
+    validations:
+      required: true
+
+  - type: input
+    id: grid
+    attributes:
+      label: Grid / resolution
+      description: Provide the main grid dimensions and field location if applicable.
+      placeholder: Nx = 256, Ny = 256, Nz = 256; cell-centered
+    validations:
+      required: true
+
+  - type: input
+    id: size
+    attributes:
+      label: Dataset size
+      description: Use the size reported by the hosting platform if available.
+      placeholder: 27.18 GB
+    validations:
+      required: true
+
+  - type: textarea
+    id: variables
+    attributes:
+      label: Variables
+      description: List variables, roles, units, shapes, dtype, and phase/interface convention.
+      placeholder: |
+        - Gvol: phase indicator / volume fraction, alpha=1 liquid and alpha=0 gas, shape 256 x 256 x 256
+        - V: velocity vector field, shape 3 x 256 x 256 x 256
+        - P: pressure field, shape 256 x 256 x 256
+    validations:
+      required: true
+
+  - type: textarea
+    id: physics
+    attributes:
+      label: Physics and numerical method
+      description: Describe the flow configuration, solver/source, interface method, boundary conditions, and key physical parameters.
+      placeholder: |
+        Flow configuration:
+        Solver or data source:
+        Interface method:
+        Boundary conditions:
+        Key parameters:
+    validations:
+      required: true
+
+  - type: textarea
+    id: file_format
+    attributes:
+      label: File format and loading instructions
+      description: Describe the file organization and how an external user can load one sample or snapshot.
+      placeholder: |
+        File format:
+        Directory structure:
+        Loading script:
+        Notes for custom binary files: header bytes, dtype, payload shape, vector component order, reshape order.
+    validations:
+      required: true
+
+  - type: input
+    id: doi
+    attributes:
+      label: DOI or preferred citation
+      description: Provide a dataset DOI, related paper DOI, or preferred citation.
+      placeholder: 10.1016/j.ijmultiphaseflow.2018.06.009
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: State the data license clearly.
+      placeholder: CC BY 4.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: preview
+    attributes:
+      label: Preview image
+      description: Attach a representative image here, or provide a link to one.
+      placeholder: Drag and drop a preview image, or paste an image URL.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission checklist
+      options:
+        - label: The data files are hosted outside the website repository.
+          required: true
+        - label: The hosted dataset includes README.md and info.json.
+          required: true
+        - label: Variables, grid, file format, license, and citation are documented.
+          required: true
+        - label: A representative preview image is attached or linked.
+          required: true
