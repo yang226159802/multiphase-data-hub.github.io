@@ -1,21 +1,7 @@
 // Auto-generated from datasets/*.json
 // Regenerate with: python scripts/generate_datasets_js.py
-const datasets = [{
-    id: "dns_droplet_breakup_hit_we15",
-    title: "Droplet breakup in HIT",
-    summary: "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
-    status: "seed",
-    modality: "simulation",
-    physics: ["two phase flow", "VOF", "droplet breakup in homogeneous isotropic turbulence"],
-    tasks: ["interface dynamics", "flow-field learning"],
-    samples: "81 snapshots",
-    resolution: "256^3 cells",
-    format: "custom binary",
-    license: "CC-BY-4.0",
-    imageUrl: "website/assets/hit_droplet_breakup_3d.png",
-    dataUrl: "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
-    detailUrl: "dataset-dns_droplet_breakup_hit_we15.html"
-  }];
+const datasets = [{"id":"dns_droplet_breakup_hit_we15","physics":["two phase flow","VOF","droplet breakup in homogeneous isotropic turbulence"],"license":"CC-BY-4.0","dataUrl":"https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15","samples":"81 snapshots","title":"Droplet breakup in HIT","modality":"simulation","format":"custom binary","detailUrl":"dataset-dns_droplet_breakup_hit_we15.html","status":"seed","summary":"Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.","imageUrl":"website/assets/hit_droplet_breakup_3d.png","resolution":"256^3 cells","tasks":["interface dynamics","flow-field learning"]},{"id":"test_submit_dataset","physics":["two phase flow","VOF","droplet breakup in homogeneous isotropic turbulence"],"license":"CC-BY-4.0","dataUrl":"https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15","samples":"81 snapshots","title":"Droplet breakup in HIT","modality":"simulation","format":"custom binary","detailUrl":"dataset-test_submit_dataset.html","status":"seed","summary":"Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.","imageUrl":"website/assets/hit_droplet_breakup_3d.png","resolution":"256^3 cells","tasks":["interface dynamics","flow-field learning"]}]
+;
 
 const grid = document.querySelector("#dataset-grid");
 const search = document.querySelector("#dataset-search");
