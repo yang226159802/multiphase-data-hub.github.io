@@ -3,13 +3,13 @@
 # secrets are configured in the repository settings.
 reviewers:
   - name: Primary Maintainer
-    email: maintainer@example.com
+    email: 18933168496@163.com
     topics:
       - general
       - metadata
       - multiphase-flow
   - name: Benchmark Reviewer
-    email: benchmark-reviewer@example.com
+    email: 226159802@qq.com
     topics:
       - benchmark
       - ai-ready
