@@ -67,6 +67,14 @@ jobs:
           if ! git diff --exit-code website/datasets.js; then
             echo "::error::website/datasets.js is stale. Run 'python scripts/generate_datasets_js.py' locally and commit the result."
             echo "Stale datasets.js means the website will not show newly added datasets."
+
+      - name: Check dataset pages freshness
+        run: |
+          python scripts/generate_dataset_pages.py
+          if ! git diff --exit-code website/dataset-*.html; then
+            echo "::error::Dataset detail pages are stale. Run 'python scripts/generate_dataset_pages.py' locally and commit the results."
+            exit 1
+          fi
             exit 1
           fi
 
