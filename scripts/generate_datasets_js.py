@@ -40,7 +40,7 @@
          resolution = "unknown"
  
      image = visuals.get("main", "assets/placeholder.png")
-    if image.startswith('website/'):
+     if image.startswith('website/'):
         image = image[len('website/'):]
  
      data_url = (
