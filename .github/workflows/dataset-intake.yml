@@ -61,6 +61,15 @@ jobs:
       - name: Validate dataset metadata
         run: python scripts/validate_dataset_metadata.py
 
+      - name: Check datasets.js freshness
+        run: |
+          python scripts/generate_datasets_js.py
+          if ! git diff --exit-code website/datasets.js; then
+            echo "::error::website/datasets.js is stale. Run 'python scripts/generate_datasets_js.py' locally and commit the result."
+            echo "Stale datasets.js means the website will not show newly added datasets."
+            exit 1
+          fi
+
   notify-reviewers:
     name: Notify reviewers
     if: always() && (github.event_name == 'pull_request' || (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'dataset-submission')))

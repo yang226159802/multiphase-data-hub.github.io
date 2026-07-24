@@ -1,22 +1,21 @@
-const datasets = [
-  {
+// Auto-generated from datasets/*.json
+// Regenerate with: python scripts/generate_datasets_js.py
+const datasets = [{
     id: "dns_droplet_breakup_hit_we15",
     title: "Droplet breakup in HIT",
-    summary:
-      "Direct numerical simulation data for a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15.",
+    summary: "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
     status: "seed",
     modality: "simulation",
-    physics: ["VOF", "two-phase flow", "droplet breakup", "homogeneous isotropic turbulence"],
-    tasks: ["interface dynamics", "flow-field learning", "DNS analysis"],
+    physics: ["two phase flow", "VOF", "droplet breakup in homogeneous isotropic turbulence"],
+    tasks: ["interface dynamics", "flow-field learning"],
     samples: "81 snapshots",
     resolution: "256^3 cells",
     format: "custom binary",
-    license: "CC BY 4.0",
-    imageUrl: "assets/hit_droplet_breakup_3d.png",
+    license: "CC-BY-4.0",
+    imageUrl: "website/assets/hit_droplet_breakup_3d.png",
     dataUrl: "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
-    detailUrl: "dataset-hit-droplet-breakup.html"
-  }
-];
+    detailUrl: "dataset-dns_droplet_breakup_hit_we15.html"
+  }];
 
 const grid = document.querySelector("#dataset-grid");
 const search = document.querySelector("#dataset-search");
@@ -30,14 +29,14 @@ function render(items) {
   if (grid.dataset.layout === "gallery") {
     grid.innerHTML = items
       .map(
-        (dataset) => `
+        (dataset) => ` + '"`' + @'
         <article class="dataset-tile">
           <a href="${dataset.detailUrl}" aria-label="${dataset.title}">
             <img src="${dataset.imageUrl}" alt="${dataset.title}" />
             <span>${dataset.title}</span>
           </a>
         </article>
-      `
+      ` + '"`' + @'
       )
       .join("");
     return;
@@ -45,7 +44,7 @@ function render(items) {
 
   grid.innerHTML = items
     .map(
-      (dataset) => `
+      (dataset) => ` + '"`' + @'
       <article class="dataset-card">
         <div>
           <p class="eyebrow">${dataset.status} dataset</p>
@@ -66,7 +65,7 @@ function render(items) {
           <a href="${dataset.dataUrl}">ModelScope</a>
         </div>
       </article>
-    `
+    ` + '"`' + @'
     )
     .join("");
 }
