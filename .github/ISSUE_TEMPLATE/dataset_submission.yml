@@ -71,10 +71,10 @@ body:
     id: metadata_link
     attributes:
       label: Metadata file link
-      description: Link to the hosted info.json or multiphase_info.json, if already public.
-      placeholder: https://.../multiphase_info.json
+      description: Upload the multiphase_info.json file or provide a link to the hosted info.json / multiphase_info.json.
+      placeholder: https://.../multiphase_info.json (or drag & drop a JSON file)
     validations:
-      required: false
+      required: true
 
   - type: input
     id: contributors
