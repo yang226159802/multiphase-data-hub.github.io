@@ -15,7 +15,7 @@
   },
   "data": {
     "primary_host": "ModelScope",
-    "modelscope_url": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+    "modelscope_url": "https://www.modelscope.cn/home",
     "kaggle_url": "TBD",
     "doi": "TBD",
     "format": "custom binary",
@@ -62,8 +62,8 @@
     }
   },
   "visuals": {
-    "main": "website/assets/hit_droplet_breakup_3d.png",
-    "initial_condition": "website/assets/hit_initial_droplet.png"
+    "main": "website/assets/test.png",
+    "initial_condition": "website/assets/test.png"
   },
   "license": {
     "data_license": "CC-BY-4.0",
