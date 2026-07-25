@@ -156,6 +156,7 @@ def main() -> int:
         return 0
 
     generated = 0
+    records = []
     for path in json_files:
         try:
             record = json.loads(path.read_text(encoding="utf-8"))
@@ -167,15 +168,23 @@ def main() -> int:
         if page is None:
             continue
 
+        records.append(record)
         dataset_id = record.get("id", "")
         output_path = PAGES_DIR / f"dataset-{dataset_id}.html"
         output_path.write_text(page, encoding="utf-8")
         print(f"Generated {output_path.name}")
         generated += 1
 
+    # Remove orphaned detail pages for deleted dataset JSONs
+    existing_pages = set(PAGES_DIR.glob("dataset-*.html"))
+    expected_ids = {r.get("id", "") for r in records}
+    for page_path in sorted(existing_pages):
+        page_id = page_path.stem.replace("dataset-", "")
+        if page_id not in expected_ids:
+            page_path.unlink()
+            print(f"Removed orphan page: {page_path.name}")
+
     print(f"Generated {generated} dataset detail page(s)")
     return 0
-
-
 if __name__ == "__main__":
     raise SystemExit(main())
