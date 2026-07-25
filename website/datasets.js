@@ -65,8 +65,8 @@ const datasets = [
     "resolution": "256^3 cells",
     "format": "custom binary",
     "license": "CC-BY-4.0",
-    "imageUrl": "assets/hit_droplet_breakup_3d.png",
-    "dataUrl": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+    "imageUrl": "assets/test.png",
+    "dataUrl": "https://www.modelscope.cn/home",
     "detailUrl": "dataset-test_submit_dataset2.html"
   }
 ];
