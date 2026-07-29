@@ -23,7 +23,7 @@ HTML_TEMPLATE = """<!doctype html>
   </head>
   <body>
     <header class="page-header">
-      <nav class="nav" aria-label="Primary navigation">
+      <div class="site-nav"><nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="index.html">Multiphase Data Hub</a>
         <div class="nav-links">
           <a href="datasets.html">Datasets</a>
@@ -33,7 +33,7 @@ HTML_TEMPLATE = """<!doctype html>
           <a href="governance.html">Governance</a>
           <a href="about.html">About</a>
         </div>
-      </nav>
+      </nav></div>
       <div class="page-title">
         <p class="eyebrow">{status_label}</p>
         <h1>{title}</h1>
