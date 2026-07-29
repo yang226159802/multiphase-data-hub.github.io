@@ -50,7 +50,7 @@ const datasets = [
     "id": "test_submit_dataset2",
     "title": "TEST",
     "summary": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
-    "status": "seed",
+    "status": "community",
     "modality": "simulation",
     "physics": [
       "two phase flow",
@@ -74,6 +74,11 @@ const datasets = [
 const grid = document.querySelector("#dataset-grid");
 const search = document.querySelector("#dataset-search");
 const count = document.querySelector("#dataset-count");
+const snapshotTotal = document.querySelector("#snapshot-total");
+if (snapshotTotal) {
+  const totalSnapshots = datasets.reduce((sum, d) => sum + (parseInt(d.samples) || 0), 0);
+  snapshotTotal.textContent = String(totalSnapshots);
+}
 
 function render(items) {
   if (count) {

@@ -3,7 +3,7 @@
   "id": "test_submit_dataset2",
   "title": "TEST",
   "version": "1.0.0",
-  "status": "seed_dataset",
+  "status": "community_dataset",
   "description": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
   "domain": {
     "field": "multiphase_flow",
