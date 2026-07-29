@@ -20,7 +20,7 @@
 .site-nav .brand {
   text-decoration: none;
   font-weight: 780;
-  font-size: 22px;
+  font-size: 36px;
   color: var(--accent-dark);
 }
 
@@ -41,24 +41,7 @@
   text-underline-offset: 4px;
 }
 
-/* Transparent overlay on homepage hero */
-.site-header .site-nav {
-  background: transparent;
-  border-bottom: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 
-.site-header .site-nav .brand { color: #fff; }
-.site-header .site-nav .nav-links,
-.site-header .site-nav .nav-links a { color: rgba(255, 255, 255, 0.86); }
-
-.site-header .site-nav .nav-links a:hover {
-  color: #fff;
-  text-decoration: underline;
-}
 :root {
   color-scheme: light;
   --bg: #f6f7f4;
@@ -98,7 +81,7 @@ a {
   color: inherit;
 }
 
-.site-header { position: relative; padding-top: 72px; min-height: 88vh;
+.site-header { position: relative; min-height: 88vh;
   background:
     linear-gradient(115deg, rgba(8, 74, 67, 0.98), rgba(22, 32, 29, 0.88)),
     radial-gradient(circle at 75% 20%, rgba(212, 162, 54, 0.18), transparent 34%);
@@ -349,7 +332,7 @@ h3 {
   display: grid;
   gap: 14px;
   color: var(--accent);
-  font-size: 22px;
+  font-size: 36px;
   font-weight: 800;
   line-height: 1.15;
   text-align: center;
