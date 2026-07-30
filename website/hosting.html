@@ -29,15 +29,15 @@
     </header>
 
     <main>
-        <nav class="page-sidebar">
+            <nav class="page-sidebar">
       <span class="sidebar-title">Hosting</span>
-        <a href="#modelscope">ModelScope</a>
-        <a href="#kaggle">Kaggle</a>
-        <a href="#zenodo">Zenodo</a>
-        <a href="#institutional">Institutional</a>
+        <a href="#platform-choice">Platform Choice</a>
+        <a href="#minimum-package">Minimum Package</a>
+        <a href="#short-upload-guide">Short Upload Guide</a>
+        <a href="#binary-cfd-files">Binary CFD Files</a>
     </nav>
       <section class="section">
-        <p class="eyebrow">Platform Choice</p>
+        <p class="eyebrow" id="platform-choice">Platform Choice</p>
         <h2>Choose a host according to access, audience, and citation needs.</h2>
         <div class="standard-list">
           <article>
@@ -56,7 +56,7 @@
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Minimum Package</p>
+        <p class="eyebrow" id="minimum-package">Minimum Package</p>
         <h2>Every hosted dataset should include these files.</h2>
         <pre class="code-block"><code>README.md
 info.json
@@ -66,7 +66,7 @@ load_example.py  # required for solver-specific binary formats</code></pre>
       </section>
 
       <section class="section">
-        <p class="eyebrow">Short Upload Guide</p>
+        <p class="eyebrow" id="short-upload-guide">Short Upload Guide</p>
         <h2>Keep platform-specific files separate from scientific metadata.</h2>
         <div class="detail-grid">
           <article class="detail-card">
@@ -85,7 +85,7 @@ load_example.py  # required for solver-specific binary formats</code></pre>
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Binary CFD Files</p>
+        <p class="eyebrow" id="binary-cfd-files">Binary CFD Files</p>
         <h2>Custom or extensionless files need explicit reading metadata.</h2>
         <p class="section-copy">
           For files such as <code>Gvol.000001</code>, <code>V.000001</code>,

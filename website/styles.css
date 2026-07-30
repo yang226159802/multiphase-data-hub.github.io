@@ -602,37 +602,33 @@ h3 {
 /* ===== Page Sidebar ===== */
 .page-sidebar {
   position: fixed;
-  top: 200px;
-  right: max(24px, calc((100% - 1180px) / 2 - 210px));
+  top: 500px;
+  right: max(24px, calc((100% - 1180px) / 2 - 260px));
   width: 170px;
-  border-left: 1px solid var(--line);
-  padding-left: 16px;
   font-size: 13px;
   z-index: 50;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0 0 40px;
+  background: var(--accent-dark);
+  border: 1px solid var(--accent-dark);
+  border-radius: 6px;
+  padding: 0;
+  overflow: hidden;
 }
 
-.sidebar-title {
-  font-weight: 780;
-  color: var(--ink);
-  margin-bottom: 8px;
-  font-size: 14px;
+.page-sidebar 
+
+
+
+.page-sidebar a:last-child {
+  border-bottom: none;
 }
 
-.page-sidebar a {
-  color: var(--muted);
-  text-decoration: none;
-  line-height: 1.5;
-  padding: 2px 0;
-  transition: color 0.15s;
-}
 
-.page-sidebar a:hover {
-  color: var(--accent);
-}
+
+
+
+
+
+
 
 @media (max-width: 1100px) {
   .page-sidebar {
