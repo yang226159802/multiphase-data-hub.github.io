@@ -513,6 +513,7 @@ h3 {
 .section-copy {
   max-width: 760px;
   color: var(--muted);
+  font-size: 20px;
 }
 
 .download-actions {
@@ -592,6 +593,45 @@ h3 {
   text-underline-offset: 2px;
 }
 
+
+/* ===== Page Sidebar ===== */
+.page-sidebar {
+  position: fixed;
+  top: 120px;
+  right: max(24px, calc((100% - 1180px) / 2 - 180px));
+  width: 160px;
+  font-size: 13px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 0 40px;
+}
+
+.sidebar-title {
+  font-weight: 780;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.page-sidebar a {
+  color: var(--muted);
+  text-decoration: none;
+  line-height: 1.5;
+  padding: 2px 0;
+  transition: color 0.15s;
+}
+
+.page-sidebar a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 1100px) {
+  .page-sidebar {
+    display: none;
+  }
+}
 @media (max-width: 820px) {
   .nav,
   .section-heading,

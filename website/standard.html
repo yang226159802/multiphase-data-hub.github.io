@@ -30,8 +30,18 @@
     </header>
 
     <main>
+    <nav class="page-sidebar">
+      <span class="sidebar-title">Data Standard</span>
+        <a href="#core-principle">Core Principle</a>
+        <a href="#parameters-grid">Parameters and Grid</a>
+        <a href="#checklist">Checklist</a>
+        <a href="#file-descriptions">File Descriptions</a>
+        <a href="#metadata-template">Metadata Template</a>
+        <a href="#variables">Variables</a>
+        <a href="#minimum-record">Minimum Record</a>
+    </nav>
       <section class="section">
-        <p class="eyebrow">Core Principle</p>
+        <p class="eyebrow" id="core-principle">Core Principle</p>
         <h2>Do not force one file format. Require clear meaning.</h2>
         <p class="section-copy">
           Multiphase-flow datasets may use HDF5, NPZ, VTK, EnSight, DAT files,
@@ -43,7 +53,7 @@
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Minimum Record</p>
+        <p class="eyebrow" id="minimum-record">Minimum Record</p>
         <h2>Required information for simulation datasets</h2>
         <div class="standard-list">
           <article>
@@ -66,7 +76,7 @@
       </section>
 
       <section class="section">
-        <p class="eyebrow">Variables</p>
+        <p class="eyebrow" id="variables">Variables</p>
         <h2>Complete CFD flow-field data should include three core roles.</h2>
         <p class="section-copy">
           For two-phase and multiphase CFD datasets, the minimum recommended
@@ -82,7 +92,7 @@
       </section>
 
       <section class="section band">
-        <p class="eyebrow">Parameters and Grid</p>
+        <p class="eyebrow" id="parameters-grid">Parameters and Grid</p>
         <h2>Store case settings in metadata unless they vary as fields.</h2>
         <div class="detail-grid">
           <article class="detail-card">
@@ -105,7 +115,7 @@
       </section>
 
       <section class="section">
-        <p class="eyebrow">Metadata Template</p>
+        <p class="eyebrow" id="metadata-template">Metadata Template</p>
         <h2>Use <code>info.json</code> with global and local sections.</h2>
         <p class="section-copy">
           The <code>global</code> section describes the dataset as a whole. The
