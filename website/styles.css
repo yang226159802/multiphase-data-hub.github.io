@@ -160,7 +160,7 @@ h1 {
 }
 
 h2 {
-  font-size: 34px;
+  font-size: 22px;
   line-height: 1.12;
   margin-bottom: 16px;
 }
@@ -594,12 +594,19 @@ h3 {
 }
 
 
+/* Offset for fixed nav anchors */
+.eyebrow[id] {
+  scroll-margin-top: 80px;
+}
+
 /* ===== Page Sidebar ===== */
 .page-sidebar {
   position: fixed;
-  top: 120px;
-  right: max(24px, calc((100% - 1180px) / 2 - 180px));
-  width: 160px;
+  top: 200px;
+  right: max(24px, calc((100% - 1180px) / 2 - 210px));
+  width: 170px;
+  border-left: 1px solid var(--line);
+  padding-left: 16px;
   font-size: 13px;
   z-index: 50;
   display: flex;
