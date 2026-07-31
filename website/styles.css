@@ -602,34 +602,44 @@ h3 {
 /* ===== Page Sidebar ===== */
 .page-sidebar {
   position: fixed;
-  top: 500px;
-  right: 24px;
-  width: 170px;
+  top: 400px;
+  right: 15px;
+  width: 150px;
   z-index: 50;
-  background: var(--accent-dark);
-  border: 1px solid var(--accent-dark);
+  background: #fff;
+  border: 1px solid var(--line);
   border-radius: 6px;
   padding: 0;
   overflow: hidden;
 }
 
+.page-sidebar .sidebar-on-this {
+  display: block;
+  padding: 8px 12px;
+  font-weight: 700;
+  color: #fff;
+  font-size: 12px;
+  background: var(--accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .page-sidebar .sidebar-title {
   display: block;
-  padding: 12px 16px 8px;
+  padding: 10px 12px 6px;
   font-weight: 780;
-  color: #fff;
+  color: var(--ink);
   font-size: 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .page-sidebar a {
   display: block;
-  padding: 8px 16px;
-  color: rgba(255,255,255,0.85);
-  font-weight: 600;
+  padding: 6px 12px;
+  color: var(--ink);
+  font-weight: 500;
   text-decoration: none;
   font-size: 13px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid var(--line);
   transition: color 0.15s, background 0.15s;
 }
 
@@ -638,21 +648,9 @@ h3 {
 }
 
 .page-sidebar a:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.08);
+  color: var(--accent);
+  background: var(--soft);
 }
-
-.page-sidebar a:last-child {
-  border-bottom: none;
-}
-
-
-
-
-
-
-
-
 
 @media (max-width: 1100px) {
   .page-sidebar {
