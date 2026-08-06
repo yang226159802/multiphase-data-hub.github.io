@@ -54,7 +54,7 @@ HTML_TEMPLATE = """<!doctype html>
       </section>
 
       <section class="section band">
-        <h2>Quick Info</h2>
+        <h2 id="quick-info">Quick Info</h2>
         <ul class="quick-info-list">
           {quick_info_items}
         </ul>
