@@ -137,7 +137,7 @@ a {
   color: var(--rust);
   font-size: 26px;
   font-weight: 780;
-  text-transform: uppercase;
+  
   letter-spacing: 0;
 }
 
@@ -491,6 +491,11 @@ h3 {
 }
 
 .detail-hero img {
+  max-width: 100%;
+  max-height: 480px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   border-radius: 8px;
   border: 1px solid var(--line);
   background: #fff;
@@ -513,7 +518,7 @@ h3 {
 }
 
 .section-copy {
-  max-width: 760px;
+  max-width: 100%;
   color: var(--muted);
   font-size: 20px;
 }
