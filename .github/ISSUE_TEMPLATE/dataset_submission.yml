@@ -22,12 +22,33 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: subtitle
+    attributes:
+      label: Subtitle
+      description: Optional short subtitle shown under the title.
+      placeholder: DNS of droplet breakup in homogeneous isotropic turbulence
+    validations:
+      required: false
+
   - type: textarea
     id: description
     attributes:
       label: Description
       description: Provide one clear paragraph describing the physical case, method/source, key parameters, and released fields.
       placeholder: This dataset contains direct numerical simulation data of ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Dataset status
+      description: Final catalogue status for this dataset.
+      options:
+        - Seed dataset
+        - Community dataset
+        - Benchmark dataset
     validations:
       required: true
 
@@ -49,30 +70,29 @@ body:
     id: requested_track
     attributes:
       label: Requested review track
-      description: Choose the closest BLASTNet-style intake track for this record.
+      description: What kind of submission is this?
       options:
-        - Catalogue record
-        - Benchmark candidate
-        - Dataset mirror
-        - Metadata correction
+        - New dataset
+        - Mirror dataset
+        - Modify dataset
     validations:
       required: true
 
   - type: input
     id: access_link
     attributes:
-      label: Public access link
-      description: Link to the dataset landing page or download page.
-      placeholder: https://modelscope.cn/datasets/owner/dataset-name
+      label: Dataset link
+      description: Link to the dataset landing page or download page. If there are multiple cases, separate each link with a semicolon (;).
+      placeholder: https://modelscope.cn/datasets/owner/dataset-name ; https://...
     validations:
       required: true
 
   - type: input
     id: metadata_link
     attributes:
-      label: Metadata file link
-      description: Upload the multiphase_info.json file or provide a link to the hosted info.json / multiphase_info.json.
-      placeholder: https://.../multiphase_info.json (or drag & drop a JSON file)
+      label: info.json link
+      description: Link to the hosted info.json / multiphase_info.json. If there are multiple cases, separate each link with a semicolon (;).
+      placeholder: https://.../info.json ; https://.../info.json
     validations:
       required: true
 
@@ -98,8 +118,8 @@ body:
     id: grid
     attributes:
       label: Grid / resolution
-      description: Provide the main grid dimensions and field location if applicable.
-      placeholder: Nx = 256, Ny = 256, Nz = 256; cell-centered
+      description: Main grid dimensions. If there are multiple cases, separate each resolution with a semicolon (;).
+      placeholder: 256x256x256 ; 512x512x512
     validations:
       required: true
 
@@ -109,6 +129,42 @@ body:
       label: Dataset size
       description: Use the size reported by the hosting platform if available.
       placeholder: 27.18 GB
+    validations:
+      required: false
+
+  - type: input
+    id: case_count
+    attributes:
+      label: Number of cases
+      description: How many distinct cases (operating conditions) does this dataset contain? Enter 1 for a single case.
+      placeholder: "1"
+    validations:
+      required: true
+
+  - type: input
+    id: case_condition
+    attributes:
+      label: Case conditions
+      description: What differs between cases (for example We = 15, 30, 45). Leave empty for a single case.
+      placeholder: We = 15, 30, 45
+    validations:
+      required: false
+
+  - type: input
+    id: samples
+    attributes:
+      label: Number of samples / snapshots
+      description: Total number of samples or snapshots released in this dataset.
+      placeholder: "81"
+    validations:
+      required: true
+
+  - type: input
+    id: format
+    attributes:
+      label: Data format
+      description: Short format label shown on the dataset card.
+      placeholder: custom binary
     validations:
       required: true
 
@@ -135,6 +191,15 @@ body:
         Interface method:
         Boundary conditions:
         Key parameters:
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: Comma-separated task labels shown as tags on the dataset card.
+      placeholder: interface dynamics, flow-field learning
     validations:
       required: true
 
@@ -185,10 +250,19 @@ body:
     id: preview
     attributes:
       label: Preview image
-      description: Attach a representative image here, or provide a link to one.
-      placeholder: Drag and drop a preview image, or paste an image URL.
+      description: Attach or link exactly one representative image shown on the main page.
+      placeholder: Drag and drop one image here, or paste an image URL.
     validations:
-      required: true
+      required: false
+
+  - type: textarea
+    id: detail_images
+    attributes:
+      label: Detail page images
+      description: Optional additional images for the dataset detail page.
+      placeholder: Drag and drop images here, or paste image URLs (one per line).
+    validations:
+      required: false
 
   - type: checkboxes
     id: checklist
