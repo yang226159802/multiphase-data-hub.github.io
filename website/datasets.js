@@ -1,37 +1,12 @@
 // Auto-generated from datasets/*.json -- do not edit manually.
-const datasets = [
-  {
-    "id": "dns_droplet_breakup_hit_we15",
-    "title": "Droplet breakup in HIT",
-    "summary": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
-    "status": "seed",
-    "modality": "simulation",
-    "physics": [
-      "two phase flow",
-      "VOF",
-      "droplet breakup in homogeneous isotropic turbulence"
-    ],
-    "tasks": [
-      "interface dynamics",
-      "flow-field learning"
-    ],
-    "samples": "81 snapshots",
-    "resolution": "256^3 cells",
-    "format": "custom binary",
-    "license": "CC-BY-4.0",
-    "imageUrl": "assets/hit_droplet_breakup_3d.png",
-    "dataUrl": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
-    "detailUrl": "dataset-dns_droplet_breakup_hit_we15.html"
-  }
-];
+const datasets = [];
 
 const grid = document.querySelector("#dataset-grid");
 const search = document.querySelector("#dataset-search");
 const count = document.querySelector("#dataset-count");
-const snapshotTotal = document.querySelector("#snapshot-total");
-if (snapshotTotal) {
-  const totalSnapshots = datasets.reduce((sum, d) => sum + (parseInt(d.samples) || 0), 0);
-  snapshotTotal.textContent = String(totalSnapshots);
+
+function caseLabel(n) {
+  return n > 1 ? "(" + n + " cases)" : "(1 case)";
 }
 
 function render(items) {
@@ -47,6 +22,7 @@ function render(items) {
           <a href="${dataset.detailUrl}" aria-label="${dataset.title}">
             <img src="${dataset.imageUrl}" alt="${dataset.title}" />
             <span>${dataset.title}</span>
+            <small class="case-count">${caseLabel(dataset.caseCount)}</small>
           </a>
         </article>
       `
@@ -56,30 +32,40 @@ function render(items) {
   }
 
   grid.innerHTML = items
-    .map(
-      (dataset) => `
+    .map((dataset) => {
+      const tagsHtml = dataset.tags && dataset.tags.length
+        ? `<div class="tags">${dataset.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>`
+        : "";
+
+      const meta = [];
+      if (dataset.samples) meta.push(`<span><strong>Samples</strong>${dataset.samples}</span>`);
+      if (dataset.grid) meta.push(`<span><strong>Grid</strong>${dataset.grid}</span>`);
+      if (dataset.fieldLocation) meta.push(`<span><strong>Field location</strong>${dataset.fieldLocation}</span>`);
+      if (dataset.format) meta.push(`<span><strong>Format</strong>${dataset.format}</span>`);
+      if (dataset.license) meta.push(`<span><strong>License</strong>${dataset.license}</span>`);
+      if (dataset.size) meta.push(`<span><strong>Size</strong>${dataset.size}</span>`);
+      const metaHtml = meta.length ? `<div class="meta">${meta.join("")}</div>` : "";
+
+      const modelScopeLink = (dataset.caseCount <= 1 && dataset.dataUrl)
+        ? `<a href="${dataset.dataUrl}">ModelScope</a>`
+        : "";
+
+      return `
       <article class="dataset-card">
         <div>
           <p class="eyebrow">${dataset.status} dataset</p>
           <h3>${dataset.title}</h3>
-          <p>${dataset.summary}</p>
+          ${dataset.subtitle ? `<p>${dataset.subtitle}</p>` : ""}
+          <p class="case-count">${caseLabel(dataset.caseCount)}</p>
         </div>
-        <div class="tags">
-          ${[...dataset.physics, ...dataset.tasks].map((tag) => `<span class="tag">${tag}</span>`).join("")}
-        </div>
-        <div class="meta">
-          <span><strong>Samples</strong>${dataset.samples}</span>
-          <span><strong>Resolution</strong>${dataset.resolution}</span>
-          <span><strong>Format</strong>${dataset.format}</span>
-          <span><strong>License</strong>${dataset.license}</span>
-        </div>
+        ${tagsHtml}
+        ${metaHtml}
         <div class="card-actions">
           <a href="${dataset.detailUrl}">Dataset page</a>
-          <a href="${dataset.dataUrl}">ModelScope</a>
+          ${modelScopeLink}
         </div>
-      </article>
-    `
-    )
+      </article>`;
+    })
     .join("");
 }
 
