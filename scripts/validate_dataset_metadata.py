@@ -12,17 +12,27 @@ ROOT = Path(__file__).resolve().parents[1]
 DATASETS = ROOT / "datasets"
 
 
-REQUIRED_CATALOGUE_FIELDS = [
+REQUIRED_FIELDS = [
     "schema_version",
     "id",
+    "requested_track",
     "title",
-    "version",
-    "status",
     "description",
-    "domain",
-    "data",
+    "status",
+    "keywords",
+    "hosting_platform",
+    "access_link",
+    "metadata_link",
+    "contributors",
+    "contact",
+    "grid",
+    "field_location",
+    "case_count",
+    "format",
+    "file_format",
+    "doi",
     "license",
-    "citation",
+    "preview",
 ]
 
 
@@ -36,33 +46,27 @@ def check_catalogue_record(path: Path) -> list[str]:
     with path.open("r", encoding="utf-8") as handle:
         record = json.load(handle)
 
-    for field in REQUIRED_CATALOGUE_FIELDS:
-        if field not in record:
-            errors.append(f"{path}: missing required field '{field}'")
+    for field in REQUIRED_FIELDS:
+        if not record.get(field):
+            errors.append(f"{path}: missing or empty required field '{field}'")
 
-    data = record.get("data", {})
-    if isinstance(data, dict):
-        access_url = (
-            data.get("public_access_url")
-            or data.get("modelscope_url")
-            or data.get("kaggle_url")
-            or data.get("zenodo_url")
-            or data.get("repository_url")
+    access_link = (record.get("access_link") or "").strip()
+    links = [s.strip() for s in access_link.split(";") if s.strip()]
+    if not links:
+        errors.append(f"{path}: access_link needs at least one public URL")
+
+    case_count = 1
+    try:
+        case_count = int(record.get("case_count") or 1)
+    except (TypeError, ValueError):
+        errors.append(f"{path}: case_count must be an integer")
+
+    if case_count < 1:
+        errors.append(f"{path}: case_count must be a positive integer")
+    elif case_count > 1 and len(links) < case_count:
+        errors.append(
+            f"{path}: case_count={case_count} but only {len(links)} access link(s) provided"
         )
-        if not access_url or access_url == "TBD":
-            errors.append(f"{path}: data needs a public access URL")
-        if not data.get("format"):
-            errors.append(f"{path}: data.format is required")
-    else:
-        errors.append(f"{path}: data must be an object")
-
-    domain = record.get("domain", {})
-    if isinstance(domain, dict):
-        for field in ["flow_type", "configuration", "interface_method", "spatial_dimension"]:
-            if field not in domain:
-                errors.append(f"{path}: domain.{field} is required")
-    else:
-        errors.append(f"{path}: domain must be an object")
 
     return errors
 

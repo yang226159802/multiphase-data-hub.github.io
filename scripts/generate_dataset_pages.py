@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate website/dataset-{id}.html pages from datasets/*.json records.
 
-Run this script whenever you add or update a JSON record in datasets/.
+Records use the flat issue-field structure written by issue_to_json.py.
 """
 
 from __future__ import annotations
@@ -37,21 +37,23 @@ HTML_TEMPLATE = """<!doctype html>
       <div class="page-title">
         <p class="eyebrow">{status_label}</p>
         <h1>{title}</h1>
-        <p>{summary}</p>
+        <p>{subtitle}</p>
       </div>
     </header>
 
     <main>
       <section class="section detail-hero">
+        <img src="{image_url}" alt="{title}" />
         <div>
           <p class="eyebrow">Description</p>
           <p class="section-copy">{description}</p>
           <div class="download-actions">
-            <a class="button primary" href="{data_url}">Open on {host_platform}</a>
+            {open_button}
           </div>
         </div>
-        <img src="{image_url}" alt="{title}" />
       </section>
+
+      {cases_section}
 
       <section class="section band">
         <h2 id="quick-info">Quick Info</h2>
@@ -70,77 +72,119 @@ HTML_TEMPLATE = """<!doctype html>
 """
 
 
-def build_page(record: dict) -> str | None:
-    data = record.get("data", {})
-    citation = record.get("citation", {})
-    visuals = record.get("visuals", {})
-    license_info = record.get("license", {})
+def _short_status(status: str) -> str:
+    for suffix in ("_dataset", " dataset"):
+        if status.endswith(suffix):
+            return status[: -len(suffix)]
+    return status
 
+
+def build_page(record: dict) -> str | None:
     dataset_id = record.get("id", "")
     if not dataset_id:
         print("Skipping record without id")
         return None
 
-    title = record.get("title", "Untitled")
-    summary = record.get("description", "")
-    status = record.get("status", "seed").replace("_dataset", "")
+    title = (record.get("title") or "Untitled").strip()
+    subtitle = (record.get("subtitle") or "").strip()
+    description = (record.get("description") or "").strip()
+    status = _short_status(record.get("status", "seed"))
     status_label = status.capitalize() + " dataset"
 
-    # Image (strip website/ prefix)
-    image = visuals.get("main", "assets/placeholder.png")
+    image = (record.get("preview") or "").strip()
     if image.startswith("website/"):
         image = image[len("website/"):]
+    if not image:
+        image = "assets/placeholder.png"
 
-    # Data URL
-    data_url = (
-        data.get("modelscope_url")
-        or data.get("kaggle_url")
-        or data.get("zenodo_url")
-        or data.get("repository_url")
-        or "#"
-    )
-    if data_url in ("TBD",):
-        data_url = "#"
+    access_links = [
+        s.strip() for s in (record.get("access_link") or "").split(";") if s.strip()
+    ]
+    metadata_links = [
+        s.strip() for s in (record.get("metadata_link") or "").split(";") if s.strip()
+    ]
 
-    host_platform = data.get("primary_host", "ModelScope")
+    try:
+        case_count = int(record.get("case_count") or 1)
+    except (TypeError, ValueError):
+        case_count = 1
+    if case_count < 1:
+        case_count = 1
 
-    # Quick Info items
-    items: list[str] = []
-
-    if data_url and data_url != "#":
-        items.append(f'<li><a class="text-link" href="{data_url}">{host_platform} Link</a></li>')
-
-    authors = citation.get("authors", [])
-    if authors:
-        items.append(f"<li>Contributors: {', '.join(authors)}</li>")
-
-    grid = data.get("grid", {})
-    cell_shape = grid.get("cell_shape", [])
-    if cell_shape:
-        dims = " x ".join(str(n) for n in cell_shape)
-        items.append(f"<li><em>N</em>x = {dims.replace(' x ', '</em>, <em>N</em>y = ').replace(',', ', <em>N</em>z =', 1) if len(cell_shape) >= 3 else f'<li>Grid: {dims}'}</em></li>")
+    if case_count <= 1 and access_links:
+        host = record.get("hosting_platform", "ModelScope")
+        open_button = (
+            f'<a class="button primary" href="{access_links[0]}">Open on {host}</a>'
+        )
     else:
-        # Simple grid fallback
-        pass
+        open_button = ""
 
-    doi = citation.get("related_paper_doi", "")
+    cases_section = ""
+    if case_count > 1:
+        rows: list[str] = []
+        total = max(len(access_links), len(metadata_links))
+        for i in range(total):
+            acc = access_links[i] if i < len(access_links) else ""
+            meta = metadata_links[i] if i < len(metadata_links) else ""
+            acc_td = f'<a class="text-link" href="{acc}">{acc}</a>' if acc else "-"
+            meta_td = f'<a class="text-link" href="{meta}">info.json</a>' if meta else "-"
+            rows.append(f"<tr><td>{acc_td}</td><td>{meta_td}</td></tr>")
+        cases_section = (
+            '<section class="section">'
+            '<p class="eyebrow">Cases</p>'
+            '<h2>Dataset and metadata links</h2>'
+            '<table class="data-table"><thead><tr>'
+            "<th>Dataset link</th><th>info.json</th>"
+            "</tr></thead><tbody>"
+            + "".join(rows)
+            + "</tbody></table></section>"
+        )
+
+    items: list[str] = []
+    contributors = (record.get("contributors") or "").strip()
+    if contributors:
+        items.append(f"<li>Contributors: {contributors}</li>")
+    contact = (record.get("contact") or "").strip()
+    if contact:
+        items.append(f"<li>Contact: {contact}</li>")
+    doi = (record.get("doi") or "").strip()
     if doi:
         items.append(f'<li><a class="text-link" href="https://doi.org/{doi}">DOI</a></li>')
-
-    license_str = license_info.get("data_license", "")
+    license_str = (record.get("license") or "").strip()
     if license_str:
         items.append(f"<li>License: {license_str}</li>")
+    grid = (record.get("grid") or "").strip()
+    if grid:
+        items.append(f"<li>Grid: {grid}</li>")
+    field_location = (record.get("field_location") or "").strip()
+    if field_location:
+        items.append(f"<li>Field location: {field_location}</li>")
+    samples = (record.get("samples") or "").strip()
+    if samples:
+        items.append(f"<li>Samples / snapshots: {samples}</li>")
+    format_str = (record.get("format") or "").strip()
+    if format_str:
+        items.append(f"<li>Format: {format_str}</li>")
+    size = (record.get("size") or "").strip()
+    if size:
+        items.append(f"<li>Size: {size}</li>")
+    case_condition = (record.get("case_condition") or "").strip()
+    if case_condition:
+        items.append(f"<li>Case conditions: {case_condition}</li>")
+    file_format = (record.get("file_format") or "").strip()
+    if file_format:
+        items.append(f"<li>Loading instructions: {file_format}</li>")
 
     quick_info_items = "\n          ".join(items)
 
     return HTML_TEMPLATE.format(
         title=title,
-        summary=summary,
-        description=summary,
+        subtitle=subtitle,
+        description=description,
         status_label=status_label,
-        data_url=data_url,
-        host_platform=host_platform,
         image_url=image,
+        open_button=open_button,
+        cases_section=cases_section,
         quick_info_items=quick_info_items,
     )
 
@@ -186,5 +230,7 @@ def main() -> int:
 
     print(f"Generated {generated} dataset detail page(s)")
     return 0
+
+
 if __name__ == "__main__":
     raise SystemExit(main())

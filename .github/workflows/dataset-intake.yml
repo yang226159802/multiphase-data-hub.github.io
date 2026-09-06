@@ -52,6 +52,36 @@ jobs:
               body
             });
 
+  issue-to-pr:
+    name: Generate dataset from issue
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate dataset files
+        env:
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: python scripts/issue_to_json.py
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ID=$(cat generated_id.txt)
+          BRANCH="dataset/${ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "datasets/${ID}.json" "website/assets/${ID}"
+          git commit -m "add dataset ${ID} from issue" || echo "no changes to commit"
+          git push origin "$BRANCH"
+          gh pr create --title "Add dataset ${ID}" --body "Auto-generated from an issue. Please review the generated JSON and images." --base "${{ github.event.repository.default_branch }}" --head "$BRANCH" || echo "PR creation skipped"
+
   metadata-validation:
     name: Metadata validation
     if: github.event_name == 'pull_request' || github.event_name == 'push'
