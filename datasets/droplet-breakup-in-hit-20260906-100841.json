@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1.0",
+  "requested_track": "New dataset",
+  "title": "Droplet breakup in HIT",
+  "subtitle": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15",
+  "description": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
+  "status": "Seed dataset",
+  "keywords": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15. The dataset provides volume-fraction, pressure, and velocity fields over 81 snapshots.",
+  "hosting_platform": "ModelScope",
+  "access_link": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15;https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+  "metadata_link": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15/files;https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15/files",
+  "physics": "_No response_",
+  "variables": "_No response_",
+  "grid": "Nx=256,Ny=256,Nz=256;Nx=256,Ny=256,Nz=256",
+  "field_location": "cell-centered",
+  "samples": "81",
+  "format": "custom binary",
+  "file_format": "custom binary",
+  "size": "_No response_",
+  "case_count": "2",
+  "case_condition": "We=15;We=15",
+  "contributors": "Changxiao Shao",
+  "contact": "226159802@qq.com",
+  "doi": "10.1016/j.ijmultiphaseflow.2018.06.009",
+  "license": "CC-BY-4.0",
+  "preview": "https://github.com/user-attachments/assets/903181c4-cd33-4abc-9d39-b12ef0da86f0\"",
+  "detail_images": [
+    "https://github.com/user-attachments/assets/84c4c1ac-48c4-4416-a51e-587820f76ae8\"",
+    "https://github.com/user-attachments/assets/e1ea5ad1-cf8d-4dc2-95ce-721655bf5a33\""
+  ],
+  "automation_notes": "_No response_",
+  "id": "droplet-breakup-in-hit-20260906-100841"
+}
