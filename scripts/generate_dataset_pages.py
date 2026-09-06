@@ -141,6 +141,11 @@ def build_page(record: dict) -> str | None:
         )
 
     items: list[str] = []
+    if case_count <= 1:
+        if access_links:
+            items.append(f'<li><a class="text-link" href="{access_links[0]}">Dataset link</a></li>')
+        if metadata_links:
+            items.append(f'<li><a class="text-link" href="{metadata_links[0]}">info.json</a></li>')
     contributors = (record.get("contributors") or "").strip()
     if contributors:
         items.append(f"<li>Contributors: {contributors}</li>")
