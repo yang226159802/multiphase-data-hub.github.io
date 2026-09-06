@@ -124,8 +124,8 @@ def main() -> int:
    parsed = parse_issue_body(body)
    record: dict[str, object] = {"schema_version": "0.1.0"}
    for label, field in LABEL_TO_FIELD.items():
-       value = parsed.get(label, "")
-       if value:
+       value = parsed.get(label, "").strip()
+       if value and value != "_No response_":
            record[field] = value
 
    title = str(record.get("title", "")).strip()
