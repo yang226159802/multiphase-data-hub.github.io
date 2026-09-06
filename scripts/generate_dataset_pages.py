@@ -196,8 +196,7 @@ def main() -> int:
 
     json_files = sorted(DATASETS_DIR.glob("*.json"))
     if not json_files:
-        print("No dataset JSON files found")
-        return 0
+        print("No dataset JSON files found; cleaning orphan pages")
 
     generated = 0
     records = []

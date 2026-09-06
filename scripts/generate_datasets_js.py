@@ -69,8 +69,7 @@ def main() -> int:
 
     json_files = sorted(DATASETS_DIR.glob("*.json"))
     if not json_files:
-        print("No dataset JSON files found, skipping")
-        return 0
+        print("No dataset JSON files found; writing empty list")
 
     entries = []
     for path in json_files:

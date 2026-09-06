@@ -77,7 +77,8 @@ def main() -> int:
 
     json_files = sorted(DATASETS.glob("*.json"))
     if not json_files:
-        fail("No dataset catalogue records found in datasets/")
+        print("No dataset catalogue records found in datasets/; skipping")
+        return 0
 
     errors: list[str] = []
     for path in json_files:
