@@ -86,10 +86,10 @@ def main() -> int:
 const grid = document.querySelector("#dataset-grid");
 const search = document.querySelector("#dataset-search");
 const count = document.querySelector("#dataset-count");
-const snapshotTotal = document.querySelector("#snapshot-total");
-if (snapshotTotal) {
-  const totalSnapshots = datasets.reduce((sum, d) => sum + (parseInt(d.samples) || 0), 0);
-  snapshotTotal.textContent = String(totalSnapshots);
+const caseTotal = document.querySelector("#case-total");
+if (caseTotal) {
+  const totalCases = datasets.reduce((sum, d) => sum + (d.caseCount || 1), 0);
+  caseTotal.textContent = String(totalCases);
 }
 
 function caseLabel(n) {
