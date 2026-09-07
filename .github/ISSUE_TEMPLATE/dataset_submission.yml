@@ -16,7 +16,7 @@ body:
     id: requested_track
     attributes:
       label: Requested review track
-      description: What kind of submission is this? (New dataset: Create a fresh dataset; Mirror dataset: A copy of an existing dataset for different access; Modify dataset: Update an existing dataset).
+      description: What kind of submission is this? (New dataset, Mirror dataset or Modify dataset).
       options:
         - New dataset
         - Mirror dataset
