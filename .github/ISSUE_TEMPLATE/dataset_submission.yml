@@ -16,7 +16,7 @@ body:
     id: requested_track
     attributes:
       label: Requested review track
-      description: What kind of submission is this?
+      description: What kind of submission is this? (New dataset, Mirror dataset or Modify dataset).
       options:
         - New dataset
         - Mirror dataset
@@ -55,10 +55,10 @@ body:
     id: status
     attributes:
       label: Dataset status
-      description: Final catalogue status for this dataset.
+      description: Final catalogue status for this dataset. 
       options:
-        - Seed dataset
         - Community dataset
+        - Seed dataset
         - Benchmark dataset
     validations:
       required: true
@@ -68,7 +68,7 @@ body:
     attributes:
       label: Keywords
       description: Comma-separated keywords shown as tags on the dataset card.
-      placeholder: interface dynamics, flow-field learning
+      placeholder: interface dynamics, flow-field learning, VOF, droplet breakup, homogeneous isotropic turbulence, DNS analysis
     validations:
       required: true
 
@@ -161,7 +161,7 @@ body:
     id: format
     attributes:
       label: Data format
-      description: Short format label shown on the dataset card.
+      description: Short format label shown on the dataset card (for example .h5, .npz, custom binary, etc).
       placeholder: custom binary
     validations:
       required: true
@@ -172,9 +172,9 @@ body:
       label: File format and loading instructions
       description: Describe the file organization and how an external user can load one sample or snapshot.
       placeholder: |
-        File format:
-        Directory structure:
-        Loading script:
+        File format: custom binary
+        Directory structure: dataset/data, dataset/info.json, dataset/README.md, dataset/load_example.py
+        Loading script: load_example.py
         Notes for custom binary files: header bytes, dtype, payload shape, vector component order, reshape order.
     validations:
       required: true
@@ -201,8 +201,8 @@ body:
     id: case_condition
     attributes:
       label: Case conditions
-      description: What differs between cases (for example We = 15, 30, 45). Leave empty for a single case.
-      placeholder: We = 15, 30, 45
+      description: What differs between cases (for example We = 15, 30). Leave empty for a single case.
+      placeholder: We = 15; We = 30
     validations:
       required: false
 
@@ -238,7 +238,7 @@ body:
     attributes:
       label: License
       description: State the data license clearly.
-      placeholder: CC BY 4.0
+      placeholder: CC-BY-4.0
     validations:
       required: true
 
