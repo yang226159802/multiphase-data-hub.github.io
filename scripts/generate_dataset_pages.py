@@ -53,6 +53,8 @@ HTML_TEMPLATE = """<!doctype html>
         </div>
       </section>
 
+      {detail_images_section}
+
       {cases_section}
 
       <section class="section band">
@@ -140,6 +142,26 @@ def build_page(record: dict) -> str | None:
             + "</tbody></table></section>"
         )
 
+    detail_images = record.get("detail_images", [])
+    if isinstance(detail_images, str):
+        detail_images = [detail_images]
+    detail_imgs = []
+    for d_img in detail_images:
+        d_img = (d_img or "").strip()
+        if not d_img:
+            continue
+        if d_img.startswith("website/"):
+            d_img = d_img[len("website/"):]
+        detail_imgs.append(f'<img src="{d_img}" alt="{title}" />')
+    if detail_imgs:
+        detail_images_section = (
+            '<section class="section detail-gallery">'
+            + "".join(detail_imgs)
+            + '</section>'
+        )
+    else:
+        detail_images_section = ""
+
     items: list[str] = []
     if case_count <= 1:
         if access_links:
@@ -190,6 +212,7 @@ def build_page(record: dict) -> str | None:
         image_url=image,
         open_button=open_button,
         cases_section=cases_section,
+        detail_images_section=detail_images_section,
         quick_info_items=quick_info_items,
     )
 
