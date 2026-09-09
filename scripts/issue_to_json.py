@@ -83,10 +83,10 @@ def extract_urls(value: str) -> list[str]:
    urls: list[str] = []
    # markdown image/links: ![...](url) or [...](url)
    for match in re.finditer(r"!?\[[^\]]*\]\((https?://[^)\s]+)\)", value):
-       urls.append(match.group(1))
+       urls.append(match.group(1).rstrip('"\'.,;'))
    # bare URLs
    for match in re.finditer(r"https?://[^\s)\]]+", value):
-       url = match.group(0).rstrip(".,;")
+       url = match.group(0).rstrip('"\'.,;')
        if url not in urls:
            urls.append(url)
    return urls
