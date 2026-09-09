@@ -44,6 +44,7 @@ HTML_TEMPLATE = """<!doctype html>
     <main>
       <section class="section detail-hero">
         <img src="{image_url}" alt="{title}" />
+        {detail_images_inline}
         <div>
           <p class="eyebrow">Description</p>
           <p class="section-copy">{description}</p>
@@ -52,10 +53,7 @@ HTML_TEMPLATE = """<!doctype html>
           </div>
         </div>
       </section>
-
-      {detail_images_section}
-
-      {cases_section}
+{cases_section}
 
       <section class="section band">
         <h2 id="quick-info">Quick Info</h2>
@@ -154,13 +152,9 @@ def build_page(record: dict) -> str | None:
             d_img = d_img[len("website/"):]
         detail_imgs.append(f'<img src="{d_img}" alt="{title}" />')
     if detail_imgs:
-        detail_images_section = (
-            '<section class="section detail-gallery">'
-            + "".join(detail_imgs)
-            + '</section>'
-        )
+        detail_images_inline = "".join(detail_imgs)
     else:
-        detail_images_section = ""
+        detail_images_inline = ""
 
     items: list[str] = []
     if case_count <= 1:
@@ -212,7 +206,7 @@ def build_page(record: dict) -> str | None:
         image_url=image,
         open_button=open_button,
         cases_section=cases_section,
-        detail_images_section=detail_images_section,
+        detail_images_inline=detail_images_inline,
         quick_info_items=quick_info_items,
     )
 
