@@ -19,16 +19,40 @@ const datasets = [
     "dataUrl": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
     "detailUrl": "dataset-droplet-breakup-in-hit-20260906-120935.html",
     "caseCount": 1
+  },
+  {
+    "id": "droplet-breakup-in-hit-20260909-083910",
+    "title": "Droplet breakup in HIT",
+    "subtitle": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15",
+    "status": "seed",
+    "tags": [
+      "interface dynamics",
+      "flow-field learning",
+      "VOF",
+      "droplet breakup",
+      "homogeneous isotropic turbulence",
+      "DNS analysis"
+    ],
+    "samples": "81",
+    "grid": "Nx =256, Ny = 256, Nz = 256",
+    "fieldLocation": "cell-centered",
+    "format": "custom binary",
+    "license": "CC-BY-4.0",
+    "size": "27.18 GB",
+    "imageUrl": "https://github.com/user-attachments/assets/f5d71008-938f-4b1e-ba03-df66801992e5\"",
+    "dataUrl": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+    "detailUrl": "dataset-droplet-breakup-in-hit-20260909-083910.html",
+    "caseCount": 1
   }
 ];
 
 const grid = document.querySelector("#dataset-grid");
 const search = document.querySelector("#dataset-search");
 const count = document.querySelector("#dataset-count");
-const snapshotTotal = document.querySelector("#snapshot-total");
-if (snapshotTotal) {
-  const totalSnapshots = datasets.reduce((sum, d) => sum + (parseInt(d.samples) || 0), 0);
-  snapshotTotal.textContent = String(totalSnapshots);
+const caseTotal = document.querySelector("#case-total");
+if (caseTotal) {
+  const totalCases = datasets.reduce((sum, d) => sum + (d.caseCount || 1), 0);
+  caseTotal.textContent = String(totalCases);
 }
 
 function caseLabel(n) {
