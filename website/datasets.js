@@ -1,26 +1,6 @@
 // Auto-generated from datasets/*.json -- do not edit manually.
 const datasets = [
   {
-    "id": "droplet-breakup-in-hit-20260906-120935",
-    "title": "Droplet breakup in HIT",
-    "subtitle": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15",
-    "status": "seed",
-    "tags": [
-      "multiphase_flow",
-      "two_phase_flow"
-    ],
-    "samples": "",
-    "grid": "Nx=256,Ny=256,Nz=256;Nx=256,Ny=256,Nz=256",
-    "fieldLocation": "cell-centered",
-    "format": "custom binary",
-    "license": "CC-BY-4.0",
-    "size": "27.18GB",
-    "imageUrl": "https://github.com/user-attachments/assets/e75f2f79-f939-49b9-be46-280ade06567d\"",
-    "dataUrl": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
-    "detailUrl": "dataset-droplet-breakup-in-hit-20260906-120935.html",
-    "caseCount": 1
-  },
-  {
     "id": "droplet-breakup-in-hit-20260909-083910",
     "title": "Droplet breakup in HIT",
     "subtitle": "Direct numerical simulation data of a liquid droplet breaking up in forced homogeneous isotropic turbulence at Weber number 15",
