@@ -43,7 +43,6 @@ HTML_TEMPLATE = """<!doctype html>
 
     <main>
       <section class="section detail-hero">
-        <img src="{image_url}" alt="{title}" />
         {detail_images_inline}
         <div>
           <p class="eyebrow">Description</p>
@@ -203,7 +202,6 @@ def build_page(record: dict) -> str | None:
         subtitle=subtitle,
         description=description,
         status_label=status_label,
-        image_url=image,
         open_button=open_button,
         cases_section=cases_section,
         detail_images_inline=detail_images_inline,
