@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1.0",
+  "requested_track": "New dataset",
+  "title": "test",
+  "subtitle": "test",
+  "description": "test",
+  "status": "Community dataset",
+  "keywords": "test",
+  "hosting_platform": "ModelScope",
+  "access_link": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15;https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+  "metadata_link": "https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15;https://modelscope.cn/datasets/yangqianqi/dns-droplet-breakup-hit-we15",
+  "grid": "test",
+  "field_location": "test",
+  "format": "test",
+  "file_format": "test",
+  "case_count": "2",
+  "case_condition": "We=15；We=15",
+  "contributors": "test",
+  "contact": "test",
+  "doi": "10.1016/j.ijmultiphaseflow.2018.06.009",
+  "license": "CC-BY-4.0",
+  "preview": "assets/test-20260911-091449/cover.png",
+  "detail_images": [
+    "assets/test-20260911-091449/detail-1.png"
+  ],
+  "id": "test-20260911-091449"
+}
